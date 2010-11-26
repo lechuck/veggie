@@ -30,6 +30,16 @@
   <%= @restaurant.hours %>
 </p>
 
+<p>
+  <b>Portions:</b>
+  <%= render :partial => 'portion', :collection => @restaurant.portions %>
+</p>
+
+<p>
+  <%= link_to 'Add portion', new_restaurant_portion_path(@restaurant)  %>
+</p>
+
+
 
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
 <%= link_to 'Back', restaurants_path %>

@@ -10,7 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101125195414) do
+ActiveRecord::Schema.define(:version => 20101126145527) do
+
+  create_table "portions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "restaurant_id"
+    t.string   "name"
+    t.text     "veganmod"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "restaurants", :force => true do |t|
     t.integer  "user_id"
