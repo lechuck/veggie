@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  username: MyString
-  email: MyString
-  crypted_password: MyString
-  password_salt: MyString
-  persistence_token: MyString
+  username: test
+  email: test@testing.com
+  crypted_password: 6480dd200db2719d431c7a25b133887ad8b46551 # 'monkey'
+  password_salt: 356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+  persistence_token: x
 
 two:
   username: MyString
