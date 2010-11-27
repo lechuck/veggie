@@ -16,5 +16,9 @@ Restaurant.create(:name => 'New Bamboo Center', :address => 'Annankatu 29, Helsi
                   Alkoholia emme saa myydä, koska kiinteistö jossa ravintolamme sijaitsee, on raittiusseuran omaisuutta.',              
                   :hours => '11-17')
 
+res1 = Restaurant.find(:first)
+res1.tag_list = 'malesialainen, kiinalainen, nouto'
+res1.save
+
 Portion.create(:name => 'Kung-Po tofu', :restaurant => Restaurant.find_by_name('New Bamboo Center'), :user => 
               user1, :veganmod => 'Ei muutoksia.')

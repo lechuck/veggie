@@ -35,6 +35,19 @@
   <%= render :partial => 'portion', :collection => @restaurant.portions %>
 </p>
 
+
+<p>
+  <b>Tags:</b>
+	<!-- <%= @restaurant.tag_list %> -->
+
+	<% tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
+    <%= link_to tag.name, { :action => :tag, :id => tag.name }, :class => css_class %>
+  <% end %>
+  
+	
+</p>
+
+
 <p>
   <%= link_to 'Add portion', new_restaurant_portion_path(@restaurant)  %>
 </p>

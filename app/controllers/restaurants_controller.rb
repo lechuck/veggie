@@ -1,4 +1,8 @@
 class RestaurantsController < ApplicationController
+  def tag_cloud
+    @tags = Restaurant.tag_counts_on(:tags)
+  end
+  
   # GET /restaurants
   # GET /restaurants.xml
   def index
@@ -14,6 +18,7 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1.xml
   def show
     @restaurant = Restaurant.find(params[:id])
+    @tags = Restaurant.tag_counts_on(:tags)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -80,4 +85,5 @@ class RestaurantsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
 end
