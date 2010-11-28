@@ -2,6 +2,14 @@ class RestaurantsController < ApplicationController
   def tag_cloud
     @tags = Restaurant.tag_counts_on(:tags)
   end
+
+  def tag
+    # Search all restaurants with tag
+    @tag_name = params[:id]
+    @restaurants_with_tag = Restaurant.tagged_with(@tag_name)
+    #@restaurants_with_tag = r.find(:first)
+      
+  end
   
   # GET /restaurants
   # GET /restaurants.xml
