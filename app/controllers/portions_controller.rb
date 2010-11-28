@@ -1,37 +1,19 @@
 class PortionsController < ApplicationController
   before_filter :find_restaurant
+  before_filter :find_portion, :except => [:new, :create]
   
-  # GET /restaurants
-  # GET /restaurants.xml
-  def index
-    redirect_to restaurants_url
-  end
-
-  # GET /restaurants/1
-  # GET /restaurants/1.xml
-  def show
-  end
-
-  # GET /restaurants/portions/new
-  # GET /restaurants/portions/new.xml
+  # GET /:restaurant_id/portions/new
   def new
-   # @restaurant = Restaurant.find(params[:restaurant_id])
     @portion = Portion.new
-
   end
 
-  # GET /restaurants/1/edit
+  # GET /restaurants/:id/edit
   def edit
-    @portion = Portion.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to restaurant_path(params[:restaurant_id], :notice => 'Oops. Portion not found.')
   end
 
-  # POST /restaurants
-  # POST /restaurants.xml
+  # POST /restaurants/:restaurant_id/portions
   def create
     @portion = Portion.new(params[:portion])
-    #restaurant = Restaurant.find(params[:restaurant_id])
     if (@restaurant.portions << @portion)
       redirect_to @restaurant
     else
@@ -39,12 +21,10 @@ class PortionsController < ApplicationController
     end
   end
 
-  # PUT /restaurants/1
-  # PUT /restaurants/1.xml
-  def update
-    @portion = Portion.find(params[:id])
-    #restaurant = Restaurant.find(params[:restaurant_id])
-    
+  # PUT  /restaurants/:restaurant_id/portions/:id
+  # PUT  /restaurants/:restaurant_id/portions/:id.xml
+  def update    
+
     respond_to do |format|
       if @portion.update_attributes(params[:portion])
         format.html { redirect_to(@restaurant, :notice => 'Portion was successfully updated.') }
@@ -56,23 +36,30 @@ class PortionsController < ApplicationController
     end
   end
 
-  # DELETE /restaurants/1
-  # DELETE /restaurants/1.xml
+  # DELETE /restaurants/:restaurant_id/portions/:id
+  # DELETE /restaurants/:restaurant_id/portions/:id.xml
   def destroy
-    @portion = Portion.find(params[:id])
     @portion.destroy
 
     respond_to do |format|
-      format.html { redirect_to(restaurants_url) }
+      format.html { redirect_to @restaurant }
       format.xml  { head :ok }
     end
   end
   
   private
   def find_restaurant
-    @restaurant_id = params[:restaurant_id]
-    return(redirect_to restaurant_path) unless @restaurant_id
-    @restaurant = Restaurant.find(@restaurant_id)
-    
+    @restaurant = Restaurant.find(params[:restaurant_id])
+  rescue ActiveRecord::RecordNotFound
+    logger.error "Attempt to access invalid restaurant #{params[:restaurant_id]}"
+    return redirect_to restaurants_path, :notice => 'Invalid restaurant'
+  end
+
+  def find_portion
+    @portion = Portion.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    logger.error "Attempt to access invalid portion #{params[:id]}"
+    return redirect_to @restaurant, :notice => 'Invalid portion'
+
   end
 end

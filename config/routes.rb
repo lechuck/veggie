@@ -1,7 +1,7 @@
 Veggie::Application.routes.draw do
   resources :restaurants do
     # This will also create routing helpers such as restaurant_portions_url and edit_restaurant_portion_path. 
-    resources :portions
+    resources :portions, :except => [:index, :show]
   end
 
   resources :users, :user_sessions 
