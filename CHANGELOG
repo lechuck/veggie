@@ -1,2 +1,4 @@
 == 28.11.2010
 * Added support for viewing tags on Restaurant
+* Added edit and delete actions for portions
+* Added error handling in portions_controller
