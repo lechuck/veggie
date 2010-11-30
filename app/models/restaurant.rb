@@ -3,5 +3,8 @@ class Restaurant < ActiveRecord::Base
   
   belongs_to :user
   has_many :portions
+  has_many :reviews
+
+  validates :name, :address, :info, :presence => true
   
 end

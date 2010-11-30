@@ -14,25 +14,20 @@ class PortionsController < ApplicationController
   # POST /restaurants/:restaurant_id/portions
   def create
     @portion = Portion.new(params[:portion])
+    @portion.user = current_user
     if (@restaurant.portions << @portion)
-      redirect_to @restaurant
+      redirect_to(@restaurant, :notice => "Portion was succesfully created")
     else
-      render :action => :edit
+      render :action => "new"
     end
   end
 
   # PUT  /restaurants/:restaurant_id/portions/:id
-  # PUT  /restaurants/:restaurant_id/portions/:id.xml
   def update    
-
-    respond_to do |format|
-      if @portion.update_attributes(params[:portion])
-        format.html { redirect_to(@restaurant, :notice => 'Portion was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @portion.errors, :status => :unprocessable_entity }
-      end
+    if @portion.update_attributes(params[:portion])
+      redirect_to(@restaurant, :notice => 'Portion was successfully updated.')
+    else
+      render :action => "edit"
     end
   end
 
@@ -60,6 +55,5 @@ class PortionsController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     logger.error "Attempt to access invalid portion #{params[:id]}"
     return redirect_to @restaurant, :notice => 'Invalid portion'
-
   end
 end
