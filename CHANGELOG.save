@@ -1,0 +1,6 @@
+== 28.11.2010
+* Added support for viewing tags on Restaurant
+* Added edit and delete actions for Portion
+* Added error handling in portions_controller
+== 29.11.2010
+* Added preliminary validations to Restaurant and Portion
