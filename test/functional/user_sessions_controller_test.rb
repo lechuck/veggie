@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class UserSessionsControllerTest < ActionController::TestCase
+=begin
   setup do
     @user_session = user_sessions(:one)
   end
@@ -46,4 +47,6 @@ class UserSessionsControllerTest < ActionController::TestCase
 
     assert_redirected_to user_sessions_path
   end
+  
+=end
 end
