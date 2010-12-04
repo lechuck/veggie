@@ -9,9 +9,11 @@ Veggie::Application.routes.draw do
    
   end
 
-  resources :users, :user_sessions 
+  resources :users, :user_sessions, :dashboard 
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
+  
+  root :to => 'dashboard#index', :as => 'dashboard'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

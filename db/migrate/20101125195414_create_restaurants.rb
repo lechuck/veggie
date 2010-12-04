@@ -7,6 +7,7 @@ class CreateRestaurants < ActiveRecord::Migration
       t.string :website
       t.text :info
       t.string :hours
+      t.string :phone
 
       t.timestamps
     end

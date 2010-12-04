@@ -3,36 +3,28 @@ require 'test_helper'
 class ReviewsControllerTest < ActionController::TestCase
   setup do
     @review = reviews(:one)
-  end
-
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:reviews)
+    @restaurant = restaurants(:bamboo)
   end
 
   test "should get new" do
-    get :new
+    get :new, :restaurant_id => @restaurant
     assert_response :success
   end
 
   test "should create review" do
     assert_difference('Review.count') do
-      post :create, :review => @review.attributes
+      post :create, :review => @review.attributes, :restaurant_id => @restaurant
     end
 
-    assert_redirected_to restaurant_review_path(assigns(:review))
+    assert_redirected_to @restaurant
   end
 
-  test "should show review" do
-    get :show, :id => @review.to_param
-    assert_response :success
-  end
-
+=begin
   test "should get edit" do
     get :edit, :id => @review.to_param
     assert_response :success
   end
+=end
 
   test "should update review" do
     put :update, :id => @review.to_param, :review => @review.attributes

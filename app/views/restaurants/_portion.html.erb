@@ -1,4 +1,6 @@
-<%= portion.name %>
+<%= portion.name %><br>
+<%= portion.description %><br>
+<%= portion.price %><br>
 <%= link_to "Edit", edit_restaurant_portion_path(@restaurant, portion) %>
 <%= link_to 'Destroy', restaurant_portion_path(@restaurant, portion), :confirm => 'Are you sure?', :method => :delete %>
 <br/>

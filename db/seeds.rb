@@ -13,12 +13,12 @@ user1.save
 Restaurant.create(:name => 'New Bamboo Center', :address => 'Annankatu 29, Helsinki',  
                   :website => 'http://newbamboocenter.com/', :info => '
                   New Bamboo Center on vuonna 1997 perustettu kiinalainen ravintola. Kiinalaisten ruokien lisäksi ravintolassamme tarjoillaan malesialaisia curryruokia. Pyrimme käyttämään tuoreita raaka-aineita, muutamaa Suomesta vaikeasti saatavissa olevaa erikoisuutta lukuunottamatta.
-                  Alkoholia emme saa myydä, koska kiinteistö jossa ravintolamme sijaitsee, on raittiusseuran omaisuutta.',              
-                  :hours => '11-17')
+                  Alkoholia emme saa myydä, koska kiinteistö jossa ravintolamme sijaitsee, on raittiusseuran omaisuutta.',
+                  :hours => '11-17', :phone => '(09) 694 3117')
 
 res1 = Restaurant.find(:first)
 res1.tag_list = 'malesialainen, kiinalainen, nouto'
 res1.save
 
 Portion.create(:name => 'Kung-Po tofu', :restaurant => Restaurant.find_by_name('New Bamboo Center'), :user => 
-              user1, :veganmod => 'Ei muutoksia.')
+              user1, :veganmod => 'Ei muutoksia.', :price => 8.90, :description => 'Uppopaistettua tofua soijakastikepohjaisella kastikkeella.')

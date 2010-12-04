@@ -17,6 +17,8 @@ ActiveRecord::Schema.define(:version => 20101129071329) do
     t.integer  "restaurant_id"
     t.string   "name"
     t.text     "veganmod"
+    t.text     "description"
+    t.decimal  "price"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -28,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20101129071329) do
     t.string   "website"
     t.text     "info"
     t.string   "hours"
+    t.string   "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

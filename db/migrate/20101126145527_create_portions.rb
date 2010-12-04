@@ -5,6 +5,8 @@ class CreatePortions < ActiveRecord::Migration
       t.integer :restaurant_id
       t.string :name
       t.text :veganmod
+      t.text :description
+      t.decimal :price
 
       t.timestamps
     end
