@@ -4,7 +4,10 @@ class Restaurant < ActiveRecord::Base
   belongs_to :user
   has_many :portions
   has_many :reviews
-
+  
+  has_many :likes
+  has_many :users, :through => :likes
+  
   validates :name, :address, :info, :presence => true
   
 end

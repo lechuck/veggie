@@ -10,7 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101129071329) do
+ActiveRecord::Schema.define(:version => 20101206204009) do
+
+  create_table "likes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "restaurant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "portions", :force => true do |t|
     t.integer  "user_id"
