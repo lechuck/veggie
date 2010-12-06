@@ -1,6 +1,18 @@
 class RestaurantsController < ApplicationController
+
+  # GET /restaurants/1/add_tags
+  def add_tags
+    @restaurant = Restaurant.find(params[:id])
+    @restaurant.tag_list << params[:taglist].split(",")
+    @restaurant.save
+    redirect_to(dashboard_path)
+    
+  end
+  
   def tag_cloud
+    # refactor : Is this even needed anywhere?
     @tags = Restaurant.tag_counts_on(:tags)
+    
   end
 
   def tag
@@ -26,7 +38,8 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1.xml
   def show
     @restaurant = Restaurant.find(params[:id])
-    @tags = Restaurant.tag_counts_on(:tags)
+    #@tags = Restaurant.tag_counts_on(:tags)
+    @tags = Restaurant.find(@restaurant).tag_counts_on(:tags)
 
     respond_to do |format|
       format.html # show.html.erb

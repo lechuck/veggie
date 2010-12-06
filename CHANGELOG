@@ -1,3 +1,6 @@
+== 6.12.2010
+* Fixed tag cloud, used to show same cloud for every restaurant
+
 == 4.12.2010
 * Added price & description to portion
 * Added new index page, "dashboard"

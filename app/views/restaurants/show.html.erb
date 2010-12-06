@@ -47,6 +47,14 @@
 	<% tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
     <%= link_to tag.name, { :action => :tag, :id => tag.name }, :class => css_class %>
   <% end %>	
+
+	<%= form_tag({:controller => restaurants_path, :action => 'add_tags'}, :method => "get") do %>
+
+	  <%= label_tag(:taglist, "Add tags:") %>
+	  <%= text_field_tag(:taglist) %>
+	  <%= submit_tag("Add") %>	
+	<% end %>
+	
 </p>
 
 <p>
