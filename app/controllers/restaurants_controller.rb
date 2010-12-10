@@ -41,6 +41,11 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:id])
     #@tags = Restaurant.tag_counts_on(:tags)
     @tags = Restaurant.find(@restaurant).tag_counts_on(:tags)
+    @food = Review.where(:restaurant_id=>@restaurant).average("food")
+    @environment = Review.where(:restaurant_id=>@restaurant).average("environment")
+    @service = Review.where(:restaurant_id=>@restaurant).average("service")
+
+
 
     add_crumb @restaurant.name, @restaurant
 
