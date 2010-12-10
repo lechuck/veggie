@@ -5,7 +5,7 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:id])
     @restaurant.tag_list << params[:taglist].split(",")
     @restaurant.save
-    redirect_to(dashboard_path)
+    redirect_to @restaurant
     
   end
   
