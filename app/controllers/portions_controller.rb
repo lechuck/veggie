@@ -1,10 +1,15 @@
 class PortionsController < ApplicationController
   before_filter :find_restaurant
   before_filter :find_portion, :except => [:new, :create]
+
+  add_crumb("Restaurants") { |instance| instance.send :restaurants_path }  
   
   # GET /:restaurant_id/portions/new
   def new
     @portion = Portion.new
+    add_crumb @restaurant.name, @restaurant
+    add_crumb "new portion", nil
+    
   end
 
   # GET /restaurants/:id/edit
@@ -15,6 +20,7 @@ class PortionsController < ApplicationController
   def create
     @portion = Portion.new(params[:portion])
     @portion.user = current_user
+                
     if (@restaurant.portions << @portion)
       redirect_to(@restaurant, :notice => "Portion was succesfully created")
     else

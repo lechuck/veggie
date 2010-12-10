@@ -1,4 +1,5 @@
 class RestaurantsController < ApplicationController
+  add_crumb("Restaurants") { |instance| instance.send :restaurants_path }  
 
   # GET /restaurants/1/add_tags
   def add_tags
@@ -36,7 +37,7 @@ class RestaurantsController < ApplicationController
 
   # GET /restaurants/1
   # GET /restaurants/1.xml
-  def show
+  def show  
     @restaurant = Restaurant.find(params[:id])
     #@tags = Restaurant.tag_counts_on(:tags)
     @tags = Restaurant.find(@restaurant).tag_counts_on(:tags)
@@ -44,6 +45,9 @@ class RestaurantsController < ApplicationController
     @environment = Review.where(:restaurant_id=>@restaurant).average("environment")
     @service = Review.where(:restaurant_id=>@restaurant).average("service")
 
+
+
+    add_crumb @restaurant.name, @restaurant
 
 
     respond_to do |format|
@@ -66,12 +70,16 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1/edit
   def edit
     @restaurant = Restaurant.find(params[:id])
+    
+    add_crumb @restaurant.name, @restaurant
+    add_crumb "edit", nil    
   end
 
   # POST /restaurants
   # POST /restaurants.xml
   def create
     @restaurant = Restaurant.new(params[:restaurant])
+    @restaurant.user = current_user
 
     respond_to do |format|
       if @restaurant.save
