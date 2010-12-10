@@ -2,7 +2,9 @@
 
 <p>
   <b>User:</b>
-  <%= @restaurant.user_id %>
+  <% unless @restaurant.user == nil %>
+	   <%= @restaurant.user.username %>
+	<% end %>
 </p>
 
 <p>
