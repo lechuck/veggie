@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+
 <p>
   <b>User:</b>
   <% unless @restaurant.user == nil %>
@@ -8,12 +9,10 @@
 </p>
 
 <p>
-  <b>Name:</b>
-  <%= @restaurant.name %>
+  <h1><%= @restaurant.name %></h1> <%= @restaurant.likes.count %> x <%= link_to "<3", like_restaurant_path %>
 </p>
 
 <p>
-  <b>Address:</b>
   <%= @restaurant.address %>
 </p>
 

@@ -8,6 +8,7 @@ Veggie::Application.routes.draw do
     end
     member do
       get 'add_tags'
+      get 'like'
     end
    
   end
