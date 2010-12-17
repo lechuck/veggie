@@ -3,9 +3,14 @@ class ApplicationController < ActionController::Base
   add_crumb "Home", '/'  
   
   helper_method :current_user
+  before_filter :new_user_session
   
   private
-  
+
+  def new_user_session
+    @user_session = UserSession.new
+  end
+    
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
     @current_user_session = UserSession.find

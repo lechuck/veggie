@@ -9,21 +9,27 @@
 </head>
 <body>
 	
+	<div id="notice">
+		<p id="notice"><%= notice %></p>
+	</div>
+			
 	<div>
 		Olet täällä: 
 		<%= render_crumbs %>
 	</div>
 	
 	<%= render "shared/menu" %>
-	
+	<p>
   <div id="nav">
 		<% if current_user %>
-			Hei <%= current_user.username %>! 
+			Moi <%= current_user.username %>! 
       <%= link_to "Muokkaa profiilia", edit_user_path(current_user.id)%>
 			<%= link_to "Kirjaudu ulos", :logout %>
-		<% else %>
-    	<%= link_to "Register", new_user_path%>
-			<%= link_to "Login", :login %>
+		<% else %>    	
+			<!-- <%= link_to "Login", :login %> -->	
+			<%= render 'user_sessions/form' %>
+			tai <%= link_to "Luo profiili", new_user_path%>
+			
 		<% end %>
   </div>
 

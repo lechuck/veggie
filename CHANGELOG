@@ -1,3 +1,8 @@
+== 17.12.2010 : tony
+* User login in application.html.erb
+* Redirecting back after login and logout
+* Added notify on application.html.erb
+
 == 6.12.2010
 * Added model for like
 * Fixed tag cloud, used to show same cloud for every restaurant
