@@ -4,8 +4,22 @@ class ApplicationController < ActionController::Base
   
   helper_method :current_user
   before_filter :new_user_session
+  before_filter :new_session
+  
+  def change_city
+    logger.info 'change cityss::::::::::::::::::::::::::::::::::::'
+    session[:city] = params[:city]
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js 
+    end
+  end
   
   private
+
+  def new_session
+      session[:city] = 'Helsinki' unless session[:city] # TODO: Better solution for default city
+  end
 
   def new_user_session
     @user_session = UserSession.new

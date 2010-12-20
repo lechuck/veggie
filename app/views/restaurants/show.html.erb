@@ -12,14 +12,7 @@
   <h1><%= @restaurant.name %></h1> <%= @restaurant.likes.count %> x <%= link_to "<3", like_restaurant_path %>
 </p>
 
-<p>
-  <%= @restaurant.address %>
-</p>
-
-<p>
-  <b>Phone:</b>
-  <%= @restaurant.phone %>
-</p>
+<!-- Branch address etc. partial here -->
 
 <p>
   <b>Website:</b>
@@ -32,9 +25,14 @@
 </p
 
 <p>
-  <b>Hours:</b>
-  <%= @restaurant.hours %>
-</p>
+  <b>Puhelin:</b>
+  <%= @restaurant.branches[0].phone %>
+</p
+
+<p>
+  <b>Ruoka:</b>
+  <%= @food %>
+</p
 
 <p>
   <b>Portions:</b>

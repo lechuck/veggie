@@ -16,6 +16,9 @@ Veggie::Application.routes.draw do
   resources :users, :user_sessions, :dashboard 
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
+
+  match 'change_city' => 'application#change_city', :as => :change_city
+  
   #match 'add_tags' => 'restaurant#add_tags', :as => :add_tags
   #match ':restaurants/:id/add_tags' => 'restaurant#add_tags', :as => :add_tags
   
@@ -31,6 +34,7 @@ Veggie::Application.routes.draw do
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
+
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

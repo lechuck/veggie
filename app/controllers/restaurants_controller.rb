@@ -12,7 +12,7 @@ class RestaurantsController < ApplicationController
     end
     #redirect_to dashboard_path
     redirect_to Restaurant.find(params[:id]) 
-    
+
   end
 
   # GET /restaurants/1/add_tags
@@ -21,13 +21,13 @@ class RestaurantsController < ApplicationController
     @restaurant.tag_list << params[:taglist].split(",")
     @restaurant.save
     redirect_to @restaurant
-    
+
   end
-  
+
   def tag_cloud
     # refactor : Is this even needed anywhere?
     @tags = Restaurant.tag_counts_on(:tags)
-    
+
   end
 
   def tag
@@ -35,14 +35,15 @@ class RestaurantsController < ApplicationController
     @tag_name = params[:id]
     @restaurants_with_tag = Restaurant.tagged_with(@tag_name)
     #@restaurants_with_tag = r.find(:first)
-      
+
   end
-  
+
   # GET /restaurants
   # GET /restaurants.xml
   def index
     @restaurants = Restaurant.all
-
+    logger.info 'Restaurant index::::'
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @restaurants }
@@ -74,6 +75,8 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/new.xml
   def new
     @restaurant = Restaurant.new
+    branch = Branch.new
+    @restaurant.branches << branch
 
     respond_to do |format|
       format.html # new.html.erb
@@ -84,7 +87,7 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1/edit
   def edit
     @restaurant = Restaurant.find(params[:id])
-    
+
     add_crumb @restaurant.name, @restaurant
     add_crumb "edit", nil    
   end
@@ -94,44 +97,63 @@ class RestaurantsController < ApplicationController
   def create
     @restaurant = Restaurant.new(params[:restaurant])
     @restaurant.user = current_user
+    @branch = Branch.new(params[:branches])
 
-    respond_to do |format|
-      if @restaurant.save
-        format.html { redirect_to(@restaurant, :notice => 'Restaurant was successfully created.') }
-        format.xml  { render :xml => @restaurant, :status => :created, :location => @restaurant }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @restaurant.errors, :status => :unprocessable_entity }
-      end
+    Restaurant.transaction do
+      @restaurant.save!
+      @branch.restaurant=@restaurant
+      @branch.save!
+      redirect_to(@restaurant, :notice => 'Ravintola lisätty!')
     end
+  rescue ActiveRecord::RecordInvalid => e
+    @branch.valid?
+    render :action => :new
   end
 
-  # PUT /restaurants/1
-  # PUT /restaurants/1.xml
-  def update
-    @restaurant = Restaurant.find(params[:id])
+=begin
+respond_to do |format|
+if @restaurant.save
+format.html { redirect_to(@restaurant, :notice => 'Restaurant was successfully created.') }
+format.xml  { render :xml => @restaurant, :status => :created, :location => @restaurant }
+else
+format.html { render :action => "new" }
+format.xml  { render :xml => @restaurant.errors, :status => :unprocessable_entity }
+end
+end
+=end    
 
-    respond_to do |format|
-      if @restaurant.update_attributes(params[:restaurant])
-        format.html { redirect_to(@restaurant, :notice => 'Restaurant was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @restaurant.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
+#huh
 
-  # DELETE /restaurants/1
-  # DELETE /restaurants/1.xml
-  def destroy
-    @restaurant = Restaurant.find(params[:id])
-    @restaurant.destroy
+# PUT /restaurants/1
+# PUT /restaurants/1.xml
+def update
+  @restaurant = Restaurant.find(params[:id])
 
-    respond_to do |format|
-      format.html { redirect_to(restaurants_url) }
+  respond_to do |format|
+    if @restaurant.update_attributes(params[:restaurant])
+      format.html { redirect_to(@restaurant, :notice => 'Restaurant was successfully updated.') }
       format.xml  { head :ok }
+    else
+      format.html { render :action => "edit" }
+      format.xml  { render :xml => @restaurant.errors, :status => :unprocessable_entity }
     end
   end
-  
+end
+
+# DELETE /restaurants/1
+# DELETE /restaurants/1.xml
+def destroy
+  @restaurant = Restaurant.find(params[:id])
+  @restaurant.destroy
+
+  respond_to do |format|
+    format.html { redirect_to(restaurants_url) }
+    format.xml  { head :ok }
+  end
+end
+
+def top
+  @top = Review.find(:all, :select => 'restaurant_id, avg(food) as foodavg', :order => 'foodavg DESC', :group => 'restaurant_id', :limit => 5)
+end
+
 end

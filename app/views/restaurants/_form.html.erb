@@ -16,8 +16,23 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
+	<%= fields_for :branches do |branch| %>
+    <%= branch.label :street %><br />
+    <%= branch.text_field :street %>
+		
+    <%= branch.label :city %><br />
+    <%= branch.text_field :city %>
+
+    <%= branch.label :hours %><br />
+    <%= branch.text_field :hours %>
+
+    <%= branch.label :phone %><br />
+    <%= branch.text_field :phone %>
+
+    <%= branch.label :email %><br />
+    <%= branch.text_field :email %>
+
+	<% end %>
   </div>
   <div class="field">
     <%= f.label :website %><br />
@@ -26,14 +41,6 @@
   <div class="field">
     <%= f.label :info %><br />
     <%= f.text_area :info %>
-  </div>
-  <div class="field">
-    <%= f.label :hours %><br />
-    <%= f.text_field :hours %>
-  </div>
-  <div class="field">
-    <%= f.label :phone %><br />
-    <%= f.text_field :phone %>
   </div>
   <div class="actions">
     <%= f.submit %>

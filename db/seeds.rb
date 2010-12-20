@@ -10,11 +10,30 @@ user1 = User.new(:username => 'tony', :password => 'tony', :password_confirmatio
             :email => 'tony@colorshki.com')
 user1.save
             
-Restaurant.create(:name => 'New Bamboo Center', :address => 'Annankatu 29, Helsinki',  
+bamboo = Restaurant.new(:name => 'New Bamboo Center', 
                   :website => 'http://newbamboocenter.com/', :info => '
                   New Bamboo Center on vuonna 1997 perustettu kiinalainen ravintola. Kiinalaisten ruokien lisäksi ravintolassamme tarjoillaan malesialaisia curryruokia. Pyrimme käyttämään tuoreita raaka-aineita, muutamaa Suomesta vaikeasti saatavissa olevaa erikoisuutta lukuunottamatta.
-                  Alkoholia emme saa myydä, koska kiinteistö jossa ravintolamme sijaitsee, on raittiusseuran omaisuutta.',
-                  :hours => '11-17', :phone => '(09) 694 3117')
+                  Alkoholia emme saa myydä, koska kiinteistö jossa ravintolamme sijaitsee, on raittiusseuran omaisuutta.', :user => user1)
+
+bamboobranch = Branch.create(:street => 'Annankatu 29', :city => 'Helsinki', :hours => '11-17', :phone => '(09) 694 3117', :email => 'bambo@newbamboocenter.fi')
+bamboo.branches << bamboobranch
+bamboo.save
+
+pikkunepal = Restaurant.new(:name => 'Pikku Nepal', 
+                  :website => 'http://pikkunepal.fi/', :info => '
+                  PIKKU NEPAL PIKKU NEPAL muutamaa Suomesta vaikeasti saatavissa olevaa erikoisuutta lukuunottamatta.
+                  Alkoholia emme saa myydä, koska kiinteistö jossa ravintolamme sijaitsee, on raittiusseuran omaisuutta.', :user => user1)
+
+pikkubranch = Branch.create(:street => 'Annankatu 27', :city => 'Helsinki', :hours => '11-17', :phone => '(09) 694 31137', :email => 'gkie@newbamboocenter.fi')
+pikkunepal.branches << pikkubranch
+pikkunepal.save
+
+Restaurant.all.each do |restaurant|
+  10.times do
+    review = Review.new(:food => rand(5) , :service=> rand(5), :environment => rand(5), :user => user1)
+    restaurant.reviews << review
+  end
+end
 
 res1 = Restaurant.find(:first)
 res1.tag_list = 'malesialainen, kiinalainen, nouto'

@@ -1,3 +1,10 @@
+== 20.12.2010 : tony & mikko
+* top5 added for food
+
+== 19.12.2010 : tony & mikko
+* Added sessions (city)
+* Moved addresses etc. from restaurant to Branch
+
 == 17.12.2010 : tony
 * User login in application.html.erb
 * Redirecting back after login and logout
@@ -16,3 +23,4 @@
 * Added support for viewing tags on Restaurant
 * Added edit and delete actions for portions
 * Added error handling in portions_controller
+

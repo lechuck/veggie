@@ -131,6 +131,7 @@
   });
 
   document.on("click", "a[data-remote]", function(event, element) {
+		logger.info 'data-remote ---------------------------------------------------------'
     if (event.stopped) return;
     handleRemote(element);
     event.stop();
