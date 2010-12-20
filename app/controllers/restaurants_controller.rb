@@ -11,7 +11,7 @@ class RestaurantsController < ApplicationController
       end
     end
     #redirect_to dashboard_path
-    redirect_to Restaurant.find(params[:id]) 
+    redirect_to :back
 
   end
 
@@ -42,6 +42,9 @@ class RestaurantsController < ApplicationController
   # GET /restaurants.xml
   def index
     @restaurants = Restaurant.all
+    @top_food = Restaurant.top5('food');
+    @top_service = Restaurant.top5('service')
+    @top_environment = Restaurant.top5('environment')
     logger.info 'Restaurant index::::'
     
     respond_to do |format|

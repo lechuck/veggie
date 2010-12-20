@@ -12,15 +12,10 @@ class Restaurant < ActiveRecord::Base
   validates :name, :info, :presence => true
   
   def self.top5(attribute)
-    top = Review.find(:all, :select => 'restaurant_id, avg(food) as foodavg', :order => 'foodavg DESC', :group => 'restaurant_id', :limit => 5)
-    restaurants = []
-    top.each do |review|
-      #review.name = Restaurant.find(review.restaurant_id)
-      restaurant = Restaurant.find(review.restaurant_id)
-      pair = [restaurant, review.foodavg]
-      restaurants << pair
-    end
-    restaurants
+    # creates [restaurant, rating] array sorted by rating
+    all_restaurants = Review.group(:restaurant).average(attribute).sort {|a,b| -1*(a[1] <=> b[1])}
+    # limit to only 5 best restaurants
+    top5 = all_restaurants[0..4]
   end
   
 end

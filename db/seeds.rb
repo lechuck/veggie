@@ -28,6 +28,15 @@ pikkubranch = Branch.create(:street => 'Annankatu 27', :city => 'Helsinki', :hou
 pikkunepal.branches << pikkubranch
 pikkunepal.save
 
+names = ['Maoz', 'Lemon Grass', 'Chilli', 'Stadin kebab', 'Kasvisbaari', 'Kipsari', 'Marjon grilli', 'Tuktuk', 'Al Zobaidi']
+
+names.each do |name|
+  restaurant = Restaurant.new(:name => name, :website => 'http://ravinto.la', :info => "Hyvä ruokapaikka", :user => user1)
+  branch = Branch.create(:street => 'Kaikukatu 1', :city => 'Helsinki', :hours => '11-17', :phone => '(09) 694 31137', :email => 'gkie@newbamboocenter.fi')
+  restaurant.branches << branch
+  restaurant.save
+end
+
 Restaurant.all.each do |restaurant|
   10.times do
     review = Review.new(:food => rand(5) , :service=> rand(5), :environment => rand(5), :user => user1)

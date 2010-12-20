@@ -1,5 +1,13 @@
 <h1>Listing restaurants</h1>
 
+<h2> Ruoka top-5 </h2>
+<%=render :partial =>'toplist', :collection => @top_food%>
+<h2> Palvelu top-5 </h2>
+<%=render :partial =>'toplist', :collection => @top_service%>
+<h2> Miljöö top-5 </h2>
+<%=render :partial =>'toplist', :collection => @top_environment%>
+
+
 <table>
   <tr>
     <th>User</th>
@@ -11,19 +19,18 @@
     <th></th>
     <th></th>
   </tr>
-
-<% @restaurants.each do |restaurant| %>
-  <tr>
-    <td><%= restaurant.user_id %></td>
-    <td><%= restaurant.name %></td>
-    <td><%= restaurant.website %></td>
-    <td><%= restaurant.info %></td>
-    <td><%= restaurant.branches[0].phone %></td>
-    <td><%= link_to 'Show', restaurant %></td>
-    <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
-    <td><%= link_to 'Destroy', restaurant, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
+  <% @restaurants.each do |restaurant| %>
+    <tr>
+      <td><%= restaurant.user_id %></td>
+      <td><%= restaurant.name %></td>
+      <td><%= restaurant.website %></td>
+      <td><%= restaurant.info %></td>
+      <td><%= restaurant.branches[0].phone %></td>
+      <td><%= link_to 'Show', restaurant %></td>
+      <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
+      <td><%= link_to 'Destroy', restaurant, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
 </table>
 
 <br />
