@@ -5,9 +5,11 @@ class Restaurant < ActiveRecord::Base
   has_many :portions, :dependent => :delete_all
   has_many :reviews, :dependent => :delete_all
   has_many :branches, :dependent => :delete_all
+  has_many :comments, :dependent => :delete_all
   
   has_many :likes, :dependent => :delete_all
   has_many :users, :through => :likes
+  has_many :users, :through => :comments
   
   validates :name, :info, :presence => true
   

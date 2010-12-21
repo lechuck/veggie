@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101219155101) do
+ActiveRecord::Schema.define(:version => 20101221115241) do
 
   create_table "branches", :force => true do |t|
     t.integer  "restaurant_id"
@@ -19,6 +19,17 @@ ActiveRecord::Schema.define(:version => 20101219155101) do
     t.string   "phone"
     t.string   "hours"
     t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "comments", :force => true do |t|
+    t.text     "comment"
+    t.integer  "positive_votes"
+    t.integer  "negative_votes"
+    t.integer  "user_id"
+    t.integer  "restaurant_id"
+    t.boolean  "deleted"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -9,7 +9,6 @@ class PortionsController < ApplicationController
     @portion = Portion.new
     add_crumb @restaurant.name, @restaurant
     add_crumb "new portion", nil
-    
   end
 
   # GET /restaurants/:id/edit
