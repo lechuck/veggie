@@ -2,7 +2,6 @@ class PortionsController < ApplicationController
   load_and_authorize_resource :restaurant
   load_and_authorize_resource :through => :restaurant
 
-
   add_crumb("Restaurants") { |instance| instance.send :restaurants_path }  
   
   # GET /:restaurant_id/portions/new

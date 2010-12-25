@@ -2,10 +2,15 @@ class ReviewsController < ApplicationController
   load_and_authorize_resource :restaurant
   load_and_authorize_resource :through => :restaurant
 
+  add_crumb("Restaurants") { |instance| instance.send :restaurants_path }
+
 
   # GET /restaurants/:restaurant_id/reviews/new
   def new
     @review = Review.new
+    add_crumb @restaurant.name, @restaurant
+    add_crumb "new review", nil
+
   end
 
   # GET /restaurants/:restaurant:id/reviews/:id/edit
