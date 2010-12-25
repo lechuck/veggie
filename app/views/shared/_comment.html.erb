@@ -1,0 +1,15 @@
+<%unless comment.deleted%>
+  <p>
+    <%=  comment.user.username %> sanoi <%= comment.created_at.strftime('%d.%m.%Y')%> :
+  </p
+  <p>
+    <%=comment.comment%>
+    <%= link_to "Poista kommentti", delete_restaurant_comment_path(comment.restaurant, comment), :method => :put, :confirm => "Haluatko varmasti poistaa kommentin?"%>
+
+  </p>
+
+
+<%else%>
+  <p> Kommentti on poistettu </p>
+
+<%end%>
