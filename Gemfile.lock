@@ -34,6 +34,7 @@ GEM
     authlogic (2.1.6)
       activesupport
     builder (2.1.2)
+    cancan (1.4.1)
     crummy (1.0.1)
     erubis (2.6.6)
       abstract (>= 1.0.0)
@@ -76,6 +77,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on
   authlogic
+  cancan
   crummy (>= 1.0.1)
   rails (= 3.0.1)
   sqlite3-ruby

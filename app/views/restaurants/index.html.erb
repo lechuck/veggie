@@ -27,8 +27,12 @@
       <td><%= restaurant.info %></td>
       <td><%= restaurant.branches[0].phone %></td>
       <td><%= link_to 'Show', restaurant %></td>
-      <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
-      <td><%= link_to 'Destroy', restaurant, :confirm => 'Are you sure?', :method => :delete %></td>
+      <%if can? :update, restaurant%>
+        <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
+      <%end%>
+      <%if can? :destroy, restaurant%>
+        <td><%= link_to 'Destroy', restaurant, :confirm => 'Are you sure?', :method => :delete %></td>
+      <%end%>
     </tr>
   <% end %>
 </table>

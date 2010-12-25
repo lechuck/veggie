@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::Base
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to login_path, :notice => "Sinulla ei ollut tarvittavia oikeuksia toiminnon suorittamiseen."
+  end
+
 
   protect_from_forgery
   add_crumb "Home", '/'  

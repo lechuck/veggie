@@ -1,18 +1,20 @@
 <p id="notice"><%= notice %></p>
 
 
+
 <p>
-  <b>User:</b>
+<h1><%= @restaurant.name %></h1>  <%= render :partial => "like", :locals => { :restaurant => @restaurant } %>
+</p>
+
+<!-- Branch address etc. partial here -->
+
+
+<p>
+  <b>Added by:</b>
   <% unless @restaurant.user == nil %>
     <%= @restaurant.user.username %>
   <% end %>
 </p>
-
-<p>
-<h1><%= @restaurant.name %></h1> <%= @restaurant.likes.count %> x <%= link_to "<3", like_restaurant_path %>
-</p>
-
-<!-- Branch address etc. partial here -->
 
 <p>
   <b>Website:</b>
@@ -38,18 +40,21 @@
   <%= @environment %>
 </p
 
-<p>
-  <%= link_to "Add review", new_restaurant_review_path(@restaurant) %>
-</p>
+<% if can? :create, Review %>
+  <p>
+    <%= link_to "Add review", new_restaurant_review_path(@restaurant) %>
+  </p>
+<% end %>
 
 <p>
   <b>Portions:</b>
   <%= render :partial => 'portion', :collection => @restaurant.portions %>
 </p>
-
-<p>
-  <%= link_to 'Add portion', new_restaurant_portion_path(@restaurant)  %>
-</p>
+<% if can? :create, Portion%>
+  <p>
+    <%= link_to 'Add portion', new_restaurant_portion_path(@restaurant)  %>
+  </p>
+<% end %>
 
 <p>
   <b>Tags:</b>
@@ -72,9 +77,13 @@
   <b>Kommentit:</b>
   <%= render :partial => 'shared/comment', :collection => @restaurant.comments%>
 </p>
-<p>
-  <%=link_to "Lisää kommentti", new_restaurant_comment_path(@restaurant)%>
-</p>
 
-<%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
+<% if can? :create, Comment%>
+
+  <p>  <%=link_to "Lisää kommentti", new_restaurant_comment_path(@restaurant)%> </p>
+<%  end %>
+
+<% if can? :edit, @restaurant %>
+  <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
+<%  end %>
 <%= link_to 'Back', restaurants_path %>

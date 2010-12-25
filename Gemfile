@@ -11,7 +11,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'authlogic'
 gem 'acts-as-taggable-on'
 gem "crummy", ">= 1.0.1"
-
+gem "cancan"
 
 # Use unicorn as the web server
 # gem 'unicorn'

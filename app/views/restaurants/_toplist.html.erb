@@ -3,5 +3,5 @@
   <% review = toplist[1] %>
   <%= link_to restaurant.name, restaurant %>
   <%= review %>
-  <%= restaurant.likes.count %> x <%= link_to "<3", like_restaurant_path(restaurant) %>
+  <%= render :partial => "like", :locals => { :restaurant => restaurant } %>
 </p>

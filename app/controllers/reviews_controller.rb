@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
-  require 'restaurant_nested_resource'
-  before_filter :find_restaurant
-  before_filter :find_review, :except => [:new, :create]
+  load_and_authorize_resource :restaurant
+  load_and_authorize_resource :through => :restaurant
+
 
   # GET /restaurants/:restaurant_id/reviews/new
   def new
@@ -38,12 +38,4 @@ class ReviewsController < ApplicationController
     redirect_to(reviews_url)
   end
 
-  private
-
-  def find_review
-    @review = Portion.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    logger.error "Attempt to access invalid portion #{params[:id]}"
-    return redirect_to @restaurant, :notice => 'Invalid portion'
-  end
 end

@@ -1,4 +1,6 @@
 class RestaurantsController < ApplicationController
+  load_and_authorize_resource
+
   add_crumb("Restaurants") { |instance| instance.send :restaurants_path }  
 
   def like     

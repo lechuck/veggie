@@ -1,8 +1,7 @@
 class PortionsController < ApplicationController
-  require 'restaurant_nested_resource'
+  load_and_authorize_resource :restaurant
+  load_and_authorize_resource :through => :restaurant
 
-  before_filter :find_restaurant
-  before_filter :find_portion, :except => [:new, :create]
 
   add_crumb("Restaurants") { |instance| instance.send :restaurants_path }  
   
@@ -48,11 +47,5 @@ class PortionsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
-  def find_portion
-    @portion = Portion.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    logger.error "Attempt to access invalid portion #{params[:id]}"
-    return redirect_to @restaurant, :notice => 'Invalid portion'
-  end
+
 end
