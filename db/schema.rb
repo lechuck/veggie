@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101221115241) do
+ActiveRecord::Schema.define(:version => 20101222123220) do
 
   create_table "branches", :force => true do |t|
     t.integer  "restaurant_id"
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20101221115241) do
     t.string   "persistence_token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "admin",             :default => false
   end
 
 end

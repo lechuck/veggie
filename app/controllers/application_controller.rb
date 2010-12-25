@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+
   protect_from_forgery
   add_crumb "Home", '/'  
   
@@ -18,7 +19,7 @@ class ApplicationController < ActionController::Base
   private
 
   def new_session
-      session[:city] = 'Helsinki' unless session[:city] # TODO: Better solution for default city
+    session[:city] = 'Helsinki' unless session[:city] # TODO: Better solution for default city
   end
 
   def new_user_session
@@ -33,6 +34,13 @@ class ApplicationController < ActionController::Base
   def current_user
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.record
+  end
+
+  def find_restaurant
+    @restaurant = Restaurant.find(params[:restaurant_id])
+  rescue ActiveRecord::RecordNotFound
+    logger.error "Attempt to access invalid restaurant #{params[:restaurant_id]}"
+    return redirect_to restaurants_path, :notice => 'Invalid restaurant'
   end
   
 end

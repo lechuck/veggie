@@ -1,4 +1,6 @@
 class PortionsController < ApplicationController
+  require 'restaurant_nested_resource'
+
   before_filter :find_restaurant
   before_filter :find_portion, :except => [:new, :create]
 
@@ -47,14 +49,6 @@ class PortionsController < ApplicationController
     end
   end
   
-  private
-  def find_restaurant
-    @restaurant = Restaurant.find(params[:restaurant_id])
-  rescue ActiveRecord::RecordNotFound
-    logger.error "Attempt to access invalid restaurant #{params[:restaurant_id]}"
-    return redirect_to restaurants_path, :notice => 'Invalid restaurant'
-  end
-
   def find_portion
     @portion = Portion.find(params[:id])
   rescue ActiveRecord::RecordNotFound
