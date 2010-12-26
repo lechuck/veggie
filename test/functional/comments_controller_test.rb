@@ -1,28 +1,23 @@
 require 'test_helper'
 
 class CommentsControllerTest < ActionController::TestCase
-  test "should get index" do
-    get :index
-    assert_response :success
-  end
-
-  test "should get show" do
-    get :show
-    assert_response :success
+  def  setup
+    @bamboo = restaurants(:bamboo)
+    @comment = comments(:bamboo_comment)
   end
 
   test "should get create" do
-    get :create
+    get :create, :restaurant_id => @bamboo.to_param
     assert_response :success
   end
 
   test "should get update" do
-    get :update
+    get :update, :restaurant_id => @bamboo.to_param, :id => @comment.to_param
     assert_response :success
   end
 
   test "should get delete" do
-    get :delete
+    get :delete, :restaurant_id => @bamboo.to_param, :id => @comment.to_param
     assert_response :success
   end
 

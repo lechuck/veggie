@@ -1,5 +1,7 @@
 == 25.12.2010 : mikko
 * added user authorization through cancan ( https://github.com/ryanb/cancan )
+* started writing tests for authorization
+* added more test data to seeds
 
 == 22.12.2010 : mikko
 * added admin attribute to user model

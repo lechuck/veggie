@@ -3,27 +3,20 @@
 one:
   user_id: 1
   name: One
-  address: Annankatu
   website: http://www.bamboocenter.com
   info: This be info.
-  hours: 11-21
 
 two:
   user_id: 1
   name: MyString
-  address: MyString
   website: MyString
   info: MyText
-  hours: MyString
 
 bamboo:
-  user_id: 1
+  user: mikko
   name: Bamboo
-  address: Annankatu
   website: http://www.bamboocenter.com
   info: This be info.
-  hours: 11-21
-  phone: 123 345 321
 
 
 

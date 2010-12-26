@@ -13,3 +13,10 @@ two:
   negative_votes: 
   user_id: 
   restaurant_id: 
+
+bamboo_comment:
+  comment: Malesialainen ravintola.
+  positive_votes:
+  negative_votes:
+  user: mikko
+  restaurant: bamboo

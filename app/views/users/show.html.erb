@@ -1,18 +1,29 @@
 <p id="notice"><%= notice %></p>
 
-* Arvostellut x ravintolaa<br> 
-* Lista ravintoloista joista tykkää
+<p> Arvostellut <%=  @user.reviews.count %> ravintolaa.</p>
+<p> Kirjoittanut <%= @user.comments.count %> kommenttia. </p>
+<p> Tykkää:
+<ul>
+  <%@user.likes.each do |like|%>
+    <li>
+      <%= link_to like.restaurant.name, like.restaurant%>
+    </li>
+  <% end %>
+</ul>
+</p>
 
 <p>
   <b>Username:</b>
   <%= @user.username %>
 </p>
 
-<!-- Näytetään vain oma -->
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<% if can? :see_email, @user %>
+  <p>
+    <b>Email:</b>
+    <%= @user.email %>
+  </p>
+<%  end %>
+<% if can? :edit, @user %>
+  <%= link_to 'Edit', edit_user_path(@user) %> |
+<%  end %>
 <%= link_to 'Back', users_path %>

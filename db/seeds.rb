@@ -6,47 +6,59 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-user1 = User.new(:username => 'tony', :password => 'tony', :password_confirmation => 'tony',
-            :email => 'tony@colorshki.com')
-user1.save
-            
-bamboo = Restaurant.new(:name => 'New Bamboo Center', 
-                  :website => 'http://newbamboocenter.com/', :info => '
-                  New Bamboo Center on vuonna 1997 perustettu kiinalainen ravintola. Kiinalaisten ruokien lisäksi ravintolassamme tarjoillaan malesialaisia curryruokia. Pyrimme käyttämään tuoreita raaka-aineita, muutamaa Suomesta vaikeasti saatavissa olevaa erikoisuutta lukuunottamatta.
-                  Alkoholia emme saa myydä, koska kiinteistö jossa ravintolamme sijaitsee, on raittiusseuran omaisuutta.', :user => user1)
+admin = User.new(:username => 'admin', :password => 'admin', :password_confirmation => 'admin',
+  :email => 'admin@trolololo.fi', :admin => true)
+admin.save
 
-bamboobranch = Branch.create(:street => 'Annankatu 29', :city => 'Helsinki', :hours => '11-17', :phone => '(09) 694 3117', :email => 'bambo@newbamboocenter.fi')
-bamboo.branches << bamboobranch
-bamboo.save
+users = %w(mikko tony simo anna juhani elias pentti maria kristiina daniela juho simeon)
 
-pikkunepal = Restaurant.new(:name => 'Pikku Nepal', 
-                  :website => 'http://pikkunepal.fi/', :info => '
-                  PIKKU NEPAL PIKKU NEPAL muutamaa Suomesta vaikeasti saatavissa olevaa erikoisuutta lukuunottamatta.
-                  Alkoholia emme saa myydä, koska kiinteistö jossa ravintolamme sijaitsee, on raittiusseuran omaisuutta.', :user => user1)
+users.each do |name|
+  User.create(:username => name, :password => name, :password_confirmation => name, :email => "#{name}@blaa.fi")
+end
 
-pikkubranch = Branch.create(:street => 'Annankatu 27', :city => 'Helsinki', :hours => '11-17', :phone => '(09) 694 31137', :email => 'gkie@newbamboocenter.fi')
-pikkunepal.branches << pikkubranch
-pikkunepal.save
+restaurants = ['Maoz', 'Lemon Grass', 'Chilli', 'Stadin kebab', 'Kasvisbaari', 'Kipsari', 'Marjon grilli', 'Tuktuk', 'Al Zobaidi']
 
-names = ['Maoz', 'Lemon Grass', 'Chilli', 'Stadin kebab', 'Kasvisbaari', 'Kipsari', 'Marjon grilli', 'Tuktuk', 'Al Zobaidi']
+tags = %w(kiinalainen, pizza, take-away, thaimaalainen, tofu, malesialainen, intialainen, nepalilainen, falafel, hampurilainen,
+raw, lounas, kallis, halpa, kreikkalainen, etiopialainen, dal, currytofu, tyylikäs, edullinen)
 
-names.each do |name|
-  restaurant = Restaurant.new(:name => name, :website => 'http://ravinto.la', :info => "Hyvä ruokapaikka", :user => user1)
+portions = ['Kung-po tofu', 'Pita falafel', 'Rulla falafel', 'Falafel burger', 'Currytofu', 'Marinoidut herkkusienet',
+  'Uppopaistetus rasvasuolasokeripallot', 'Hernefalafel', 'Seitanpihvi konjakkikastikkeella', 'Vartaassa grillattu kokonainen soijasika']
+
+comments = ["Tosi jees.", "Kävin tänään ja oli uskomatonta.", "Samaa mieltä kuin ylläoleva.", "Ystävällinen palvelu, hyvä ruoka."]
+
+restaurants.each do |name|
+  user = User.find_by_username(users[rand(users.size)])
+  restaurant = Restaurant.new(:name => name, :website => 'http://ravinto.la', :info => "Hyvä ruokapaikka", :user => user)
   branch = Branch.create(:street => 'Kaikukatu 1', :city => 'Helsinki', :hours => '11-17', :phone => '(09) 694 31137', :email => 'gkie@newbamboocenter.fi')
   restaurant.branches << branch
-  restaurant.save
-end
 
-Restaurant.all.each do |restaurant|
-  10.times do
-    review = Review.new(:food => rand(5) , :service=> rand(5), :environment => rand(5), :user => user1)
+  rand(50).times do
+    user = User.find_by_username(users[rand(users.size)])
+    review = Review.new(:food => rand(5) , :service=> rand(5), :environment => rand(5), :user => user)
     restaurant.reviews << review
   end
+
+  rand(15).times do
+    user = User.find_by_username(users[rand(users.size)])
+    like = Like.create(:user => user, :restaurant => restaurant)
+  end
+
+  rand(5).times do
+    restaurant.tag_list << tags[rand(tags.size)]
+  end
+
+  rand(10).times do
+    user = User.find_by_username(users[rand(users.size)])
+    Portion.create(:name => portions[rand(portions.size)], :restaurant => restaurant,
+      :user => user, :veganmod => 'Ei muutoksia.', :price => 8.90, :description => 'Lorem ipsum')
+  end
+
+  rand(5).times do
+    user = User.find_by_username(users[rand(users.size)])
+    comment = Comment.new(:comment => comments[rand(comments.size)], :user => user, :restaurant => restaurant)
+    restaurant.comments << comment
+  end
+
+  restaurant.save
 end
-
-res1 = Restaurant.find(:first)
-res1.tag_list = 'malesialainen, kiinalainen, nouto'
-res1.save
-
-Portion.create(:name => 'Kung-Po tofu', :restaurant => Restaurant.find_by_name('New Bamboo Center'), :user => 
-              user1, :veganmod => 'Ei muutoksia.', :price => 8.90, :description => 'Uppopaistettua tofua soijakastikepohjaisella kastikkeella.')
+  
