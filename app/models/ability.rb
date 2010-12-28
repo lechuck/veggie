@@ -17,9 +17,10 @@ class Ability
         can :create, [Restaurant, Comment, Portion, Review]
         can [:like, :add_tags], Restaurant
         can :delete, Comment, :user_id => user.id
+        can :edit, User, :id => user.id
       end
 
-      # guests can only read stuff
+      # guests can only read stuff but not user details
     else
       can :read, [Restaurant, Comment, Portion, Review]
     end
