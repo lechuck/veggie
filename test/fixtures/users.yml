@@ -1,25 +1,25 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-1:
-  username: 1
+one:
+  username: one
   email: test@testing.com
-  crypted_password: 6480dd200db2719d431c7a25b133887ad8b46551 # 'monkey'
-  password_salt: 356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
-  persistence_token: x
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt("one" + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>
   admin: false
 
 admin:
   username: admin
   email: admin@veggie.fi
-  crypted_password: ac682ebdfba8585c02c04c48be0ed7a2bb5bfb1b4b198392574d31b8976f896fd4709a90b3ddd5e22691206c5095b4bc4811ded1bc5779078922c938ed926ad9 #monkey
-  password_salt: n4tMbYeIzHbzgF8pidQt
-  persistence_token: x #?
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt("admin" + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>
   admin: true
 
 mikko:
   username: mikko
   email: mikko@veggie.fi
-  crypted_password: ac682ebdfba8585c02c04c48be0ed7a2bb5bfb1b4b198392574d31b8976f896fd4709a90b3ddd5e22691206c5095b4bc4811ded1bc5779078922c938ed926ad9 #mikko
-  password_salt: n4tMbYeIzHbzgF8pidQt
-  persistence_token: x #?
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt("mikko" + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>
   admin: false

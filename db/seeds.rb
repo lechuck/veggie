@@ -38,11 +38,6 @@ restaurants.each do |name|
     restaurant.reviews << review
   end
 
-  rand(15).times do
-    user = User.find_by_username(users[rand(users.size)])
-    like = Like.create(:user => user, :restaurant => restaurant)
-  end
-
   rand(5).times do
     restaurant.tag_list << tags[rand(tags.size)]
   end
@@ -60,5 +55,12 @@ restaurants.each do |name|
   end
 
   restaurant.save
+end
+
+Restaurant.all.each do |restaurant|
+  rand(15).times do
+    user = User.find_by_username(users[rand(users.size)])
+    restaurant.like(user)
+  end
 end
   

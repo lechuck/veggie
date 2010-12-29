@@ -4,14 +4,7 @@ class RestaurantsController < ApplicationController
   add_crumb("Restaurants") { |instance| instance.send :restaurants_path }  
 
   def like     
-    if current_user 
-      if not (Like.find(:first, :conditions => [ "restaurant_id = ?", params[:id]]))
-        like = Like.new    
-        like.user_id = current_user.id
-        like.restaurant_id = params[:id]
-        like.save
-      end
-    end
+    @restaurant.like(current_user)
     #redirect_to dashboard_path
     redirect_to :back
 

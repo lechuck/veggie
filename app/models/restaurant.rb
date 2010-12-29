@@ -9,7 +9,7 @@ class Restaurant < ActiveRecord::Base
   
   has_many :likes, :dependent => :delete_all
   has_many :users, :through => :likes
-  has_many :users, :through => :comments
+  # has_many :users, :through => :comments
   
   validates :name, :info, :presence => true
   
@@ -19,5 +19,12 @@ class Restaurant < ActiveRecord::Base
     # limit to only 5 best restaurants
     top5 = all_restaurants[0..4]
   end
-  
+
+  def like(user)
+    unless users.include?(user)
+     like = Like.new :user => user
+     likes << like
+    end
+  end
+
 end

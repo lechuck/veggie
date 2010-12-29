@@ -1,3 +1,8 @@
+== 28.12.2010 : mikko
+* fixed issue #1
+* refactored restaurant-like
+* added guests the right to register
+
 == 25.12.2010 : mikko
 * added user authorization through cancan ( https://github.com/ryanb/cancan )
 * started writing tests for authorization
