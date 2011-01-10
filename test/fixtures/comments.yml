@@ -1,22 +1,6 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  comment: MyText
-  positive_votes: 
-  negative_votes: 
-  user_id: 
-  restaurant_id: 
-
-two:
-  comment: MyText
-  positive_votes: 
-  negative_votes: 
-  user_id: 
-  restaurant_id: 
-
 bamboo_comment:
   comment: Malesialainen ravintola.
-  positive_votes:
-  negative_votes:
   user: mikko
   restaurant: bamboo

@@ -11,3 +11,9 @@ two:
   restaurant_id: 1
   name: MyString
   veganmod: MyText
+
+currytofu:
+  user: mikko
+  restaurant: bamboo
+  name: Currytofu
+  veganmod: Pyydä ilman kalakastiketta

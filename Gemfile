@@ -12,6 +12,7 @@ gem 'authlogic'
 gem 'acts-as-taggable-on'
 gem "crummy", ">= 1.0.1"
 gem "cancan"
+gem 'mocha'
 
 # Use unicorn as the web server
 # gem 'unicorn'

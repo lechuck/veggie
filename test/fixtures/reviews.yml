@@ -2,14 +2,21 @@
 
 one:
   user_id: 1
-  restaurant_id: 1
+  restaurant: one
   food: 1
-  service: 2
-  environment: 3
+  service: 1
+  environment: 1
 
 two:
   user_id: 1
-  restaurant_id: 1
-  food: 1
+  restaurant: two
+  food: 3
+  service: 1
+  environment: 1
+
+bamboo1:
+  user_id: 1
+  restaurant: bamboo
+  food: 2
   service: 1
   environment: 1

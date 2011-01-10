@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class PortionTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+  def setup
+  @portion = portions(:currytofu)
+  end
+  test "cannot save a portion without a name" do
+    @portion.name = nil
+    assert !@portion.save
   end
 end

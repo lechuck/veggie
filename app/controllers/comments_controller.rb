@@ -4,7 +4,6 @@ class CommentsController < ApplicationController
 
   add_crumb("Restaurants") { |instance| instance.send :restaurants_path }
 
-  
   def new
     @comment = Comment.new
     add_crumb @restaurant.name, @restaurant

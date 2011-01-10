@@ -7,27 +7,49 @@ class RestaurantTest < ActiveSupport::TestCase
     @restaurant = restaurants(:bamboo)
     @new_user = User.new
     @user = users(:admin)
-
   end
 
   test "cannot create a restaurant without a name" do
-    @new_restaurant.info  = 'foo'
-    assert !@new_restaurant.save, "Saved restaurant without a name"
+    @restaurant.name  =  nil
+    assert !@restaurant.save
   end
 
   test "cannot create a restaurant without info" do
-    @new_restaurant.name = 'foo'
-    assert !@new_restaurant.save, "Saved restaurant without info"
+    @restaurant.info  =  nil
+    assert !@restaurant.save
   end
 
   test "one user can like a restaurant once" do
     @restaurant.likes.destroy_all
-    assert_difference('@restaurant.likes.count', 1, 'user couldn\'t like even once') do
+    assert_difference('@restaurant.likes.count', 1) do
       @restaurant.like(@user)
     end
-    assert_no_difference('@restaurant.likes.count', "same user could add two likes") do
+    assert_no_difference('@restaurant.likes.count') do
       @restaurant.like(@user)
     end
   end
+
+  test "top is ordered by rating" do
+    attribute = 'food'
+    # restaurants is an ordered hash
+    restaurants = Restaurant.top(attribute, Restaurant.count)
+    # check that the first restaurant has greatest average and last the smallest
+    average_ratings = Review.group(:restaurant).average(attribute)
+    assert_equal average_ratings.values.max, restaurants.first[1]
+    assert_equal average_ratings.values.min, restaurants.last[1]
+    # TODO: how to compare floating point numbers correct?
+    # and that all the values in between are ordered correctly
+    previous_rating = nil
+    restaurants.each do |restaurant, rating|
+      unless previous_rating.nil?
+        assert (rating <= previous_rating)
+      end
+      previous_rating = rating
+    end  
+  end
+
 end
+    
+
+
 

@@ -36,10 +36,11 @@ class RestaurantsController < ApplicationController
   # GET /restaurants
   # GET /restaurants.xml
   def index
+    limit = 5 # how many restaurants are shown on toplists
     @restaurants = Restaurant.all
-    @top_food = Restaurant.top5('food');
-    @top_service = Restaurant.top5('service')
-    @top_environment = Restaurant.top5('environment')
+    @top_food = Restaurant.top('food', limit)
+    @top_service = Restaurant.top('service', limit)
+    @top_environment = Restaurant.top('environment', limit)
     logger.info 'Restaurant index::::'
     
     respond_to do |format|
@@ -57,8 +58,6 @@ class RestaurantsController < ApplicationController
     @food = Review.where(:restaurant_id=>@restaurant).average("food")
     @environment = Review.where(:restaurant_id=>@restaurant).average("environment")
     @service = Review.where(:restaurant_id=>@restaurant).average("service")
-
-
 
     add_crumb @restaurant.name, @restaurant
 
@@ -120,38 +119,38 @@ end
 end
 =end    
 
-#huh
+  #huh
 
-# PUT /restaurants/1
-# PUT /restaurants/1.xml
-def update
-  @restaurant = Restaurant.find(params[:id])
+  # PUT /restaurants/1
+  # PUT /restaurants/1.xml
+  def update
+    @restaurant = Restaurant.find(params[:id])
 
-  respond_to do |format|
-    if @restaurant.update_attributes(params[:restaurant])
-      format.html { redirect_to(@restaurant, :notice => 'Restaurant was successfully updated.') }
-      format.xml  { head :ok }
-    else
-      format.html { render :action => "edit" }
-      format.xml  { render :xml => @restaurant.errors, :status => :unprocessable_entity }
+    respond_to do |format|
+      if @restaurant.update_attributes(params[:restaurant])
+        format.html { redirect_to(@restaurant, :notice => 'Restaurant was successfully updated.') }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @restaurant.errors, :status => :unprocessable_entity }
+      end
     end
   end
-end
 
-# DELETE /restaurants/1
-# DELETE /restaurants/1.xml
-def destroy
-  @restaurant = Restaurant.find(params[:id])
-  @restaurant.destroy
+  # DELETE /restaurants/1
+  # DELETE /restaurants/1.xml
+  def destroy
+    @restaurant = Restaurant.find(params[:id])
+    @restaurant.destroy
 
-  respond_to do |format|
-    format.html { redirect_to(restaurants_url) }
-    format.xml  { head :ok }
+    respond_to do |format|
+      format.html { redirect_to(restaurants_url) }
+      format.xml  { head :ok }
+    end
   end
-end
 
-def top
-  @top = Review.find(:all, :select => 'restaurant_id, avg(food) as foodavg', :order => 'foodavg DESC', :group => 'restaurant_id', :limit => 5)
-end
+  def top
+    @top = Review.find(:all, :select => 'restaurant_id, avg(food) as foodavg', :order => 'foodavg DESC', :group => 'restaurant_id', :limit => 5)
+  end
 
 end
