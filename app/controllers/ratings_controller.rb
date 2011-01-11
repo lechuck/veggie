@@ -5,7 +5,7 @@ class RatingsController < ApplicationController
   add_crumb("Restaurants") { |instance| instance.send :restaurants_path }
 
 
-  # GET /restaurants/:restaurant_id/reviews/new
+  # GET /restaurants/:restaurant_id/ratings/new
   def new
     @rating = Rating.new
     add_crumb @restaurant.name, @restaurant
@@ -13,34 +13,34 @@ class RatingsController < ApplicationController
 
   end
 
-  # GET /restaurants/:restaurant:id/reviews/:id/edit
+  # GET /restaurants/:restaurant:id/ratings/:id/edit
   def edit
   end
 
-  # POST /restaurants/:restaurant:id/reviews
+  # POST /restaurants/:restaurant:id/ratings
   def create
-    @rating = Rating.new(params[:review])
+    @rating = Rating.new(params[:rating])
     @rating.user = current_user
     if (@restaurant.ratings << @rating)
-      redirect_to(@restaurant, :notice => 'Review was successfully created.')
+      redirect_to(@restaurant, :notice => 'rating was successfully created.')
     else
       render :action => "new"
     end
   end
 
-  # PUT /restaurants/:restaurant:id/reviews/:id
+  # PUT /restaurants/:restaurant:id/ratings/:id
   def update
-    if @rating.update_attributes(params[:review])
-      redirect_to(@restaurant, :notice => 'Review was successfully updated.')
+    if @rating.update_attributes(params[:rating])
+      redirect_to(@restaurant, :notice => 'rating was successfully updated.')
     else
       render :action => "edit"
     end
   end
 
-  # DELETE /restaurants/:restaurant:id/reviews/:id
+  # DELETE /restaurants/:restaurant:id/ratings/:id
   def destroy
     @rating.destroy
-    redirect_to(reviews_url)
+    redirect_to(ratings_url)
   end
 
 end
