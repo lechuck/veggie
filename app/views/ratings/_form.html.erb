@@ -1,10 +1,10 @@
-<%= form_for [@restaurant, @review] do |f| %>
-  <% if @review.errors.any? %>
+<%= form_for [@restaurant, @rating] do |f| %>
+  <% if @rating.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
+      <h2><%= pluralize(@rating.errors.count, "error") %> prohibited this review from being saved:</h2>
 
       <ul>
-      <% @review.errors.full_messages.each do |msg| %>
+      <% @rating.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>

@@ -34,7 +34,7 @@ class RestaurantTest < ActiveSupport::TestCase
     # restaurants is an ordered hash
     restaurants = Restaurant.top(attribute, Restaurant.count)
     # check that the first restaurant has greatest average and last the smallest
-    average_ratings = Review.group(:restaurant).average(attribute)
+    average_ratings = Rating.group(:restaurant).average(attribute)
     assert_equal average_ratings.values.max, restaurants.first[1]
     assert_equal average_ratings.values.min, restaurants.last[1]
     # TODO: how to compare floating point numbers correct?

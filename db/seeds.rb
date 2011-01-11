@@ -34,7 +34,7 @@ restaurants.each do |name|
 
   rand(50).times do
     user = User.find_by_username(users[rand(users.size)])
-    review = Review.new(:food => rand(5) , :service=> rand(5), :environment => rand(5), :user => user)
+    review = Rating.new(:food => rand(5) , :service=> rand(5), :environment => rand(5), :user => user)
     restaurant.reviews << review
   end
 

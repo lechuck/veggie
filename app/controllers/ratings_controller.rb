@@ -1,4 +1,4 @@
-class ReviewsController < ApplicationController
+class RatingsController < ApplicationController
   load_and_authorize_resource :restaurant
   load_and_authorize_resource :through => :restaurant
 
@@ -7,9 +7,9 @@ class ReviewsController < ApplicationController
 
   # GET /restaurants/:restaurant_id/reviews/new
   def new
-    @review = Review.new
+    @rating = Rating.new
     add_crumb @restaurant.name, @restaurant
-    add_crumb "new review", nil
+    add_crumb "Uusi arvostelu", nil
 
   end
 
@@ -19,9 +19,9 @@ class ReviewsController < ApplicationController
 
   # POST /restaurants/:restaurant:id/reviews
   def create
-    @review = Review.new(params[:review])
-    @review.user = current_user
-    if (@restaurant.reviews << @review)
+    @rating = Rating.new(params[:review])
+    @rating.user = current_user
+    if (@restaurant.ratings << @rating)
       redirect_to(@restaurant, :notice => 'Review was successfully created.')
     else
       render :action => "new"
@@ -30,7 +30,7 @@ class ReviewsController < ApplicationController
 
   # PUT /restaurants/:restaurant:id/reviews/:id
   def update
-    if @review.update_attributes(params[:review])
+    if @rating.update_attributes(params[:review])
       redirect_to(@restaurant, :notice => 'Review was successfully updated.')
     else
       render :action => "edit"
@@ -39,7 +39,7 @@ class ReviewsController < ApplicationController
 
   # DELETE /restaurants/:restaurant:id/reviews/:id
   def destroy
-    @review.destroy
+    @rating.destroy
     redirect_to(reviews_url)
   end
 

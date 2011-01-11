@@ -39,12 +39,5 @@ class ApplicationController < ActionController::Base
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.record
   end
-
-  def find_restaurant
-    @restaurant = Restaurant.find(params[:restaurant_id])
-  rescue ActiveRecord::RecordNotFound
-    logger.error "Attempt to access invalid restaurant #{params[:restaurant_id]}"
-    return redirect_to restaurants_path, :notice => 'Invalid restaurant'
-  end
   
 end

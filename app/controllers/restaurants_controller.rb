@@ -11,9 +11,10 @@ class RestaurantsController < ApplicationController
   end
 
   # GET /restaurants/1/add_tags
+  # refactor: move functionality down to model
   def add_tags
     @restaurant = Restaurant.find(params[:id])
-    @restaurant.tag_list << params[:taglist].split(",")
+    @restaurant.add_tags(params[:taglist])
     @restaurant.save
     redirect_to @restaurant
 
@@ -55,9 +56,9 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:id])
     #@tags = Restaurant.tag_counts_on(:tags)
     @tags = Restaurant.find(@restaurant).tag_counts_on(:tags)
-    @food = Review.where(:restaurant_id=>@restaurant).average("food")
-    @environment = Review.where(:restaurant_id=>@restaurant).average("environment")
-    @service = Review.where(:restaurant_id=>@restaurant).average("service")
+    @food = Rating.rating(:food, @restaurant)
+    @environment = Rating.rating(:environment, @restaurant)
+    @service = Rating.rating(:service, @restaurant)
 
     add_crumb @restaurant.name, @restaurant
 
@@ -150,7 +151,7 @@ end
   end
 
   def top
-    @top = Review.find(:all, :select => 'restaurant_id, avg(food) as foodavg', :order => 'foodavg DESC', :group => 'restaurant_id', :limit => 5)
+    @top = Rating.find(:all, :select => 'restaurant_id, avg(food) as foodavg', :order => 'foodavg DESC', :group => 'restaurant_id', :limit => 5)
   end
 
 end

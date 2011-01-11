@@ -8,6 +8,7 @@
 <%=render :partial =>'toplist', :collection => @top_environment%>
 
 
+
 <table>
   <tr>
     <th>User</th>
@@ -21,11 +22,11 @@
   </tr>
   <% @restaurants.each do |restaurant| %>
     <tr>
-      <td><%= restaurant.user_id %></td>
+      <td><%= restaurant.username %></td>
       <td><%= restaurant.name %></td>
       <td><%= restaurant.website %></td>
       <td><%= restaurant.info %></td>
-      <td><%= restaurant.branches[0].phone %></td>
+      <td><%= restaurant.phone %></td>
       <td><%= link_to 'Show', restaurant %></td>
       <%if can? :update, restaurant%>
         <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
@@ -36,7 +37,5 @@
     </tr>
   <% end %>
 </table>
-
 <br />
-
 <%= link_to 'New Restaurant', new_restaurant_path %>

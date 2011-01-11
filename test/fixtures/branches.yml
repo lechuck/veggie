@@ -1,7 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  restaurant_id: 1
+  restaurant: one
   street: MyString
   city: MyString
   phone: MyString
@@ -9,9 +9,17 @@ one:
   email: MyString
 
 two:
-  restaurant_id: 1
+  restaurant: two
   street: MyString
   city: MyString
   phone: MyString
   hours: MyString
   email: MyString
+
+bamboo:
+  restaurant: bamboo
+  street: Annankatu 12
+  city: Helsinki
+  phone: 09-123132
+  hours: 11-22
+  email: info@bamboo.com
