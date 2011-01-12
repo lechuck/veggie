@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   acts_as_authentic
-  has_many :restaurants
+  has_many :restaurants # restaurants added by user
   has_many :ratings
   has_many :portions
   has_many :comments

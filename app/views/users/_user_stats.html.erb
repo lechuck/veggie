@@ -1,0 +1,4 @@
+  <%= user.ratings.count %> arvostelua.
+  <%= user.portions.count %> lisättyä annosta.
+  <%= user.comments.count %> kommenttia.
+  Liittyi Veggieen <%= distance_of_time_in_words_to_now(user.created_at)%> sitten.

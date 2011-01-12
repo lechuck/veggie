@@ -3,6 +3,7 @@ class Portion < ActiveRecord::Base
   belongs_to :restaurant
 
   validates_presence_of :name
+  delegate :name, :to => :restaurant, :prefix => true
   
   
 end

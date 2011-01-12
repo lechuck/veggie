@@ -1,0 +1,15 @@
+<li>
+  <p>
+ <%=  link_to rating.restaurant_name, rating.restaurant %> |
+  <%= rating.restaurant_address %> |
+  <%= render :partial => 'shared/like', :locals => {:restaurant => rating.restaurant} %> |
+  </p>
+  <p>
+  <ul>
+    <li>Ruoka: <%= rating.food %> </li>
+    <li>Palvelu:  <%= rating.service %></li>
+    <li>Tunnelma:  <%= rating.environment %></li>
+  </ul>
+  </p>
+
+</li>

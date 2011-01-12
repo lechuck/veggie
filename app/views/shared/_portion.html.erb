@@ -1,0 +1,11 @@
+<%= portion.name %><br/>
+<%= portion.description %><br/>
+<%= portion.price %><br/>
+<%= link_to portion.restaurant_name, portion.restaurant if link_to_restaurant%>
+<% if can? :update, portion %>
+  <%= link_to "Edit", edit_restaurant_portion_path(portion.restaurant, portion) %>
+<% end %>
+<% if can? :destroy, portion %>
+  <%= link_to 'Destroy', restaurant_portion_path(portion.restaurant, portion), :confirm => 'Are you sure?', :method => :delete %>
+<% end %>
+<br/>

@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-<h1><%= @restaurant.name %></h1>  <%= render :partial => "like", :locals => { :restaurant => @restaurant } %>
+<h1><%= @restaurant.name %></h1>  <%= render :partial => "shared/like", :locals => { :restaurant => @restaurant } %>
 </p>
 
 <!-- Branch address etc. partial here -->
@@ -33,7 +33,7 @@
   <%= @food %>
   <b>Palvelu:</b>
   <%= @service %>
-  <b>Miljöö:</b>
+  <b>Tunnelma:</b>
   <%= @environment %>
 </p
 <p>
@@ -42,7 +42,7 @@
 
 <p>
   <b>Portions:</b>
-  <%= render :partial => 'portion', :collection => @restaurant.portions %>
+  <%= render :partial => 'shared/portion', :collection => @restaurant.portions %>
 </p>
 <p>
   <%= link_to 'Add portion', new_restaurant_portion_path(@restaurant)  %>

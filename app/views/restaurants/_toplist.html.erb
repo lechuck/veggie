@@ -3,5 +3,5 @@
   <% rating = toplist[1] %>
   <%= link_to restaurant.name, restaurant %>
   <%= number_with_precision(rating, :precision => 2)%>
-  <%= render :partial => "like", :locals => { :restaurant => restaurant } %>
+  <%= render :partial => "shared/like", :locals => { :restaurant => restaurant } %>
 </p>

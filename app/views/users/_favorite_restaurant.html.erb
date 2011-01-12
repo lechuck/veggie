@@ -1,0 +1,10 @@
+
+<li>
+  <%= link_to restaurant.name, restaurant%> |
+  <%= number_with_precision(restaurant.average_rating, :precision => 1) %> |
+  <%= render :partial => 'shared/like', :locals => {:restaurant => restaurant} %> |
+  <%= restaurant.address%> |
+  <%= restaurant.portions.count %> kasvisannosta |
+  <%= restaurant.comments.count %> kommenttia |
+</li>
+

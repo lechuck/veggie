@@ -4,27 +4,26 @@
       <h2><%= pluralize(@rating.errors.count, "error") %> prohibited this review from being saved:</h2>
 
       <ul>
-      <% @rating.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @rating.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :food %><br />
-    <%= f.text_field :food %>
-  </div>
-  <div class="field">
-    <%= f.label :service %><br />
-    <%= f.text_field :service %>
-  </div>
-  <div class="field">
-    <%= f.label :environment %><br />
-    <%= f.text_field :environment %>
-  </div>
+  <% [:food, :service, :environment].each do |attribute| %>
+    <div class ="field"> 
+      <%= f.label attribute %>
+      <% for i in 1..5 do %>
+          <%= f.radio_button attribute, i %>
+          <%= f.label "#{attribute}_#{i}", i %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+        <% end %>
+      </div>
+    <% end %>
+
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>

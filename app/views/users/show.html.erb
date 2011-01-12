@@ -1,22 +1,24 @@
 <p id="notice"><%= notice %></p>
 
-<p> Arvostellut <%=  @user.ratings.count %> ravintolaa.</p>
-<p> Kirjoittanut <%= @user.comments.count %> kommenttia. </p>
-<p> Tykkää:
-<ul>
-  <%@user.likes.each do |like|%>
-    <li>
-      <%= link_to like.restaurant.name, like.restaurant%>
-    </li>
-  <% end %>
-</ul>
-</p>
-
+<h1> <%=@user.username%></h1>
 <p>
-  <b>Username:</b>
-  <%= @user.username %>
+  <%= render :partial => 'user_stats', :locals => {:user => @user} %>
 </p>
 
+<h2> Suosikit (<%=@user.likes.count%>): </h2>
+<ul>
+  <%=  render :partial => 'favorite_restaurant', :collection => @user.liked_restaurants, :as => :restaurant%>
+</ul>
+
+<h2> Arvostelut (<%=@user.ratings.count%>): </h2>
+<ul>
+  <%= render :partial => 'rating', :collection => @user.ratings%>
+</ul>
+
+<h2> Lisätyt annokset (<%= @user.portions.count %>): </h2>
+<ul>
+  <%= render :partial => 'shared/portion', :collection => @user.portions, :locals => {:link_to_restaurant => true} %>
+</ul>
 <% if can? :see_email, @user %>
   <p>
     <b>Email:</b>
