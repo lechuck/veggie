@@ -10,7 +10,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 # veggie specific
 gem 'authlogic'
 gem 'acts-as-taggable-on'
-gem "crummy", ">= 1.0.1"
+gem 'crummy', '>= 1.0.1'
 gem "cancan"
 gem 'mocha'
 

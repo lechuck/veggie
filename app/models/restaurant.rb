@@ -51,8 +51,8 @@ class Restaurant < ActiveRecord::Base
       total = total + rating.dimensions
     end
     value.to_f / total.to_f
-
   end
+
   # method to get a phone number for a restaurant
   # TODO: what will be the phone number in case of multiple branches
   def phone

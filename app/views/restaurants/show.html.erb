@@ -42,7 +42,7 @@
 
 <p>
   <b>Portions:</b>
-  <%= render :partial => 'shared/portion', :collection => @restaurant.portions %>
+  <%= render :partial => 'shared/portion', :collection => @restaurant.portions, :locals => {:link_to_restaurant => false} %>
 </p>
 <p>
   <%= link_to 'Add portion', new_restaurant_portion_path(@restaurant)  %>

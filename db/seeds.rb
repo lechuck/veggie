@@ -32,12 +32,6 @@ restaurants.each do |name|
   branch = Branch.create(:street => 'Kaikukatu 1', :city => 'Helsinki', :hours => '11-17', :phone => '(09) 694 31137', :email => 'gkie@newbamboocenter.fi')
   restaurant.branches << branch
 
-  rand(50).times do
-    user = User.find_by_username(users[rand(users.size)])
-    review = Rating.new(:food => rand(5) , :service=> rand(5), :environment => rand(5), :user => user)
-    restaurant.reviews << review
-  end
-
   rand(5).times do
     restaurant.tag_list << tags[rand(tags.size)]
   end
@@ -61,6 +55,12 @@ Restaurant.all.each do |restaurant|
   rand(15).times do
     user = User.find_by_username(users[rand(users.size)])
     restaurant.like(user)
+  end
+  
+  rand(50).times do
+    user = User.find_by_username(users[rand(users.size)])
+    rating = Rating.new(:food => rand(5)+1 , :service=> rand(5)+1, :environment => rand(5)+1, :user => user)
+    restaurant.ratings << rating
   end
 end
   
