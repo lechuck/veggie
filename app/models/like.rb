@@ -2,6 +2,7 @@ class Like < ActiveRecord::Base
   belongs_to :restaurant
   belongs_to :user
   validate :user_can_like_a_restaurant_once, :on => :create
+  validates_presence_of :restaurant, :user
 
   #validation method:
   def user_can_like_a_restaurant_once

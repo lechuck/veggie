@@ -8,4 +8,14 @@ class PortionTest < ActiveSupport::TestCase
     @portion.name = nil
     assert !@portion.save
   end
+
+  test "cannot save a portion that doesn't belong to any restaurant" do
+    @portion.restaurant = nil
+    assert !@portion.save
+  end
+
+  test "cannot save a portion that doesn't belong to any user" do
+    @portion.user = nil
+    assert !@portion.save
+  end
 end

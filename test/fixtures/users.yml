@@ -23,3 +23,11 @@ mikko:
   crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt("mikko" + salt) %>
   persistence_token: <%= Authlogic::Random.hex_token %>
   admin: false
+
+tony:
+  username: tony
+  email: tony@veggie.fi
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt("tony" + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>
+  admin: false

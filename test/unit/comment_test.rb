@@ -9,4 +9,14 @@ class CommentTest < ActiveSupport::TestCase
     @comment.comment = nil
     assert !@comment.save
   end
+
+  test "comment must belong to a user" do
+    @comment.user = nil
+    assert !@comment.save
+  end
+
+  test "comment must belong to a restaurant" do
+    @comment.restaurant = nil
+    assert !@comment.save
+  end
 end

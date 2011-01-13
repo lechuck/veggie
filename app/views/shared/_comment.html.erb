@@ -1,6 +1,5 @@
-<%unless comment.deleted%>
   <p>
-    <%=  comment.user.username %> sanoi <%= comment.created_at.strftime('%d.%m.%Y')%> :
+    <%=  comment.username %> sanoi <%= comment.created_at.strftime('%d.%m.%Y')%> :
   </p
   <p>
     <%=comment.comment%>
@@ -9,8 +8,4 @@
     <% end %>
   </p>
 
-<%else%>
-  <p> Kommentti on poistettu </p>
-
-<%end%>
 

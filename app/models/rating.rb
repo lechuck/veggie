@@ -8,6 +8,7 @@ class Rating < ActiveRecord::Base
 
   validates_inclusion_of :food, :environment, :service, :in => 1..5
   validate :user_can_only_rate_a_restaurant_once, :on => :create
+  validates_presence_of :restaurant, :user
 
   # validation method
   def user_can_only_rate_a_restaurant_once

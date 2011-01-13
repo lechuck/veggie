@@ -38,10 +38,14 @@ class RestaurantsController < ApplicationController
   # GET /restaurants.xml
   def index
     limit = 5 # how many restaurants are shown on toplists
+    time_limit = 7
     @restaurants = Restaurant.all
-    @top_food = Restaurant.top('food', limit)
-    @top_service = Restaurant.top('service', limit)
-    @top_environment = Restaurant.top('environment', limit)
+    @top_food = Restaurant.top_by_attribute('food', limit)
+    @top_service = Restaurant.top_by_attribute('service', limit)
+    @top_environment = Restaurant.top_by_attribute('environment', limit)
+    @last_added = Restaurant.last_added(limit)
+    @best_rated = Restaurant.top_by_average_rating(limit)
+    @most_rated = Restaurant.most_rated_in_n_days(time_limit, limit)
     logger.info 'Restaurant index::::'
     
     respond_to do |format|

@@ -1,4 +1,5 @@
 class Restaurant < ActiveRecord::Base
+
   acts_as_taggable
   
   belongs_to :user
@@ -15,20 +16,37 @@ class Restaurant < ActiveRecord::Base
   has_many :likes, :dependent => :delete_all
   has_many :fans, :through => :likes, :source => :user
   
-  validates :name, :info, :presence => true
+  validates_presence_of :name, :info, :user
 
   delegate :username, :to => :user
 
-  scope :recent, order('created_at DESC')
+  #scope :recent, order('created_at DESC')
 
-  def self.top(attribute, limit)
-    # creates [restaurant, rating] ordered hash
-    all_restaurants = Rating.group(:restaurant).average(attribute).sort {|a,b| -1*(a[1] <=> b[1])}
-    all_restaurants[0..limit-1]
+  # returns list of best restaurants by attribute
+  def self.top_by_attribute(attribute, limit)
+    # return an array of restaurant objects with rating attribute
+    Restaurant.find_by_sql ["SELECT restaurants.*, AVG(ratings.?) AS rating
+    FROM ratings, restaurants WHERE restaurants.id = ratings.restaurant_id
+    GROUP BY restaurant_id ORDER BY rating DESC LIMIT ?", attribute, limit]
+  end
+# returns list of top restaurants by overall rating
+  def self.top_by_average_rating(limit)
+    Restaurant.find_by_sql ["SELECT restaurants.*, (AVG(food)+AVG(service)+AVG(environment))/3 AS rating
+    FROM restaurants, ratings WHERE restaurants.id = ratings.restaurant_id
+    GROUP BY restaurant_id ORDER BY rating DESC LIMIT ?", limit]
   end
 
   def self.last_added(limit)
-    Restaurant.order('created_at DESC').limit(limit)
+    restaurants = Restaurant.order('created_at DESC').limit(limit)
+  end
+
+  # returns list of most rated restaurant in after given time
+  def self.most_rated_in_n_days(n, limit)
+    Restaurant.find_by_sql ["SELECT restaurants.*, COUNT(*) AS count_all
+    FROM restaurants INNER JOIN ratings ON ratings.restaurant_id = restaurants.id
+    WHERE (ratings.created_at >= ?) GROUP BY restaurant_id ORDER BY count_all DESC
+    LIMIT ?", n, limit]
+
   end
 
   def like(user)
@@ -66,6 +84,5 @@ class Restaurant < ActiveRecord::Base
   def add_tags(tags)
     tag_list << tags.split(',')
   end
-
 
 end

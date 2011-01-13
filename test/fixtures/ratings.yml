@@ -15,8 +15,15 @@ two:
   environment: 1
 
 bamboo1:
-  user_id: 1
+  user: mikko
   restaurant: bamboo
-  food: 2
+  food: 5
+  service: 5
+  environment: 5
+
+bamboo2:
+  user: tony
+  restaurant: bamboo
+  food: 1
   service: 1
   environment: 1
