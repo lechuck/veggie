@@ -27,4 +27,9 @@ class Restaurant < ActiveRecord::Base
     end
   end
 
+  def tag_list
+  
+  end
+  
+
 end
