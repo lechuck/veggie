@@ -1,8 +1,22 @@
 require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+
+  def setup
+    @comment = comments(:bamboo_comment)
+  end
+  test "comment must contain a comment" do
+    @comment.comment = nil
+    assert !@comment.save
+  end
+
+  test "comment must belong to a user" do
+    @comment.user = nil
+    assert !@comment.save
+  end
+
+  test "comment must belong to a restaurant" do
+    @comment.restaurant = nil
+    assert !@comment.save
   end
 end

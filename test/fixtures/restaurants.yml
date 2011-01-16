@@ -1,13 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  user_id: 1
+  user: one
   name: One
   website: http://www.bamboocenter.com
   info: This be info.
 
 two:
-  user_id: 1
+  user: admin
   name: MyString
   website: MyString
   info: MyText

@@ -7,3 +7,7 @@ one:
 two:
   user_id: 1
   restaurant_id: 1
+
+mikkolikesbamboo:
+  user: mikko
+  restaurant: bamboo

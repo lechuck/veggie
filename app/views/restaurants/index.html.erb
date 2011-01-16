@@ -1,12 +1,17 @@
-<h1>Listing restaurants</h1>
+<h1>Ravintolat</h1>
 
-<h2> Ruoka top-5 </h2>
-<%=render :partial =>'toplist', :collection => @top_food%>
-<h2> Palvelu top-5 </h2>
-<%=render :partial =>'toplist', :collection => @top_service%>
-<h2> Miljöö top-5 </h2>
-<%=render :partial =>'toplist', :collection => @top_environment%>
-
+<h2> Arvostetuimmat: </h2>
+<%=render :partial =>'toplist', :collection => @best_rated, :as => :restaurant,  :locals => {:by_attribute => false}%>
+<h2> Viimeksi lisätyt: </h2>
+<%=render :partial =>'toplist', :collection => @last_added, :as => :restaurant,  :locals => {:by_attribute => false}%>
+<h2> Viikon arvostelluimmat: </h2>
+<%=render :partial =>'toplist', :collection => @most_rated, :as => :restaurant,  :locals => {:by_attribute => false}%>
+<h2> Ruoka top-5: </h2>
+<%=render :partial =>'toplist', :collection => @top_food, :as => :restaurant, :locals => {:by_attribute => true}%>
+<h2> Palvelu top-5: </h2>
+<%=render :partial =>'toplist', :collection => @top_service, :as => :restaurant,  :locals => {:by_attribute => true}%>
+<h2> Tunnelma top-5: </h2>
+<%=render :partial =>'toplist', :collection => @top_environment, :as => :restaurant,  :locals => {:by_attribute => true}%>
 
 <table>
   <tr>
@@ -21,11 +26,11 @@
   </tr>
   <% @restaurants.each do |restaurant| %>
     <tr>
-      <td><%= restaurant.user_id %></td>
+      <td><%= restaurant.username %></td>
       <td><%= restaurant.name %></td>
       <td><%= restaurant.website %></td>
       <td><%= restaurant.info %></td>
-      <td><%= restaurant.branches[0].phone %></td>
+      <td><%= restaurant.phone %></td>
       <td><%= link_to 'Show', restaurant %></td>
       <%if can? :update, restaurant%>
         <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
@@ -36,7 +41,5 @@
     </tr>
   <% end %>
 </table>
-
 <br />
-
 <%= link_to 'New Restaurant', new_restaurant_path %>

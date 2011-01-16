@@ -1,3 +1,17 @@
+== 13.1.2010 : mikko
+* added top_by_average_rating, last_added, most_rated_in_n_days queries to Restaurant
+
+== 12.1.2010 : mikko
+* added validations for likes and ratings: one user can create one like/rating per one restaurant
+* added stuff to User's show-view
+
+== 11.1.2010 : mikko
+* changed ratings-form to use radio buttons
+* added validations for ratings
+
+== 10.1.2010 : mikko
+* added unit tests to all models
+
 == 28.12.2010 : mikko
 * fixed issue #1
 * refactored restaurant-like

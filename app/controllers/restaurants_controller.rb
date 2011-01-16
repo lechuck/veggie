@@ -11,9 +11,10 @@ class RestaurantsController < ApplicationController
   end
 
   # GET /restaurants/1/add_tags
+  # refactor: move functionality down to model
   def add_tags
     @restaurant = Restaurant.find(params[:id])
-    @restaurant.tag_list << params[:taglist].split(",")
+    @restaurant.add_tags(params[:taglist])
     @restaurant.save
     redirect_to @restaurant
 
@@ -41,10 +42,15 @@ class RestaurantsController < ApplicationController
   # GET /restaurants
   # GET /restaurants.xml
   def index
+    limit = 5 # how many restaurants are shown on toplists
+    time_limit = 7
     @restaurants = Restaurant.all
-    @top_food = Restaurant.top5('food');
-    @top_service = Restaurant.top5('service')
-    @top_environment = Restaurant.top5('environment')
+    @top_food = Restaurant.top_by_attribute('food', limit)
+    @top_service = Restaurant.top_by_attribute('service', limit)
+    @top_environment = Restaurant.top_by_attribute('environment', limit)
+    @last_added = Restaurant.last_added(limit)
+    @best_rated = Restaurant.top_by_average_rating(limit)
+    @most_rated = Restaurant.most_rated_in_n_days(time_limit, limit)
     logger.info 'Restaurant index::::'
     
     respond_to do |format|
@@ -59,11 +65,9 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:id])
     #@tags = Restaurant.tag_counts_on(:tags)
     @tags = Restaurant.find(@restaurant).tag_counts_on(:tags)
-    @food = Review.where(:restaurant_id=>@restaurant).average("food")
-    @environment = Review.where(:restaurant_id=>@restaurant).average("environment")
-    @service = Review.where(:restaurant_id=>@restaurant).average("service")
-
-
+    @food = @restaurant.average_rating_for :food
+    @environment = @restaurant.average_rating_for :environment
+    @service = @restaurant.average_rating_for :service
 
     add_crumb @restaurant.name, @restaurant
 
@@ -125,38 +129,38 @@ end
 end
 =end    
 
-#huh
+  #huh
 
-# PUT /restaurants/1
-# PUT /restaurants/1.xml
-def update
-  @restaurant = Restaurant.find(params[:id])
+  # PUT /restaurants/1
+  # PUT /restaurants/1.xml
+  def update
+    @restaurant = Restaurant.find(params[:id])
 
-  respond_to do |format|
-    if @restaurant.update_attributes(params[:restaurant])
-      format.html { redirect_to(@restaurant, :notice => 'Restaurant was successfully updated.') }
-      format.xml  { head :ok }
-    else
-      format.html { render :action => "edit" }
-      format.xml  { render :xml => @restaurant.errors, :status => :unprocessable_entity }
+    respond_to do |format|
+      if @restaurant.update_attributes(params[:restaurant])
+        format.html { redirect_to(@restaurant, :notice => 'Restaurant was successfully updated.') }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @restaurant.errors, :status => :unprocessable_entity }
+      end
     end
   end
-end
 
-# DELETE /restaurants/1
-# DELETE /restaurants/1.xml
-def destroy
-  @restaurant = Restaurant.find(params[:id])
-  @restaurant.destroy
+  # DELETE /restaurants/1
+  # DELETE /restaurants/1.xml
+  def destroy
+    @restaurant = Restaurant.find(params[:id])
+    @restaurant.destroy
 
-  respond_to do |format|
-    format.html { redirect_to(restaurants_url) }
-    format.xml  { head :ok }
+    respond_to do |format|
+      format.html { redirect_to(restaurants_url) }
+      format.xml  { head :ok }
+    end
   end
-end
 
-def top
-  @top = Review.find(:all, :select => 'restaurant_id, avg(food) as foodavg', :order => 'foodavg DESC', :group => 'restaurant_id', :limit => 5)
-end
+  def top
+    @top = Rating.find(:all, :select => 'restaurant_id, avg(food) as foodavg', :order => 'foodavg DESC', :group => 'restaurant_id', :limit => 5)
+  end
 
 end

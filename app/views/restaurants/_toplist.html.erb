@@ -1,7 +1,9 @@
 <p>
-  <% restaurant = toplist[0] %>
-  <% review = toplist[1] %>
   <%= link_to restaurant.name, restaurant %>
-  <%= review %>
-  <%= render :partial => "like", :locals => { :restaurant => restaurant } %>
+  <% if by_attribute %>
+    <%= number_with_precision(restaurant.rating, :precision => 1)%>
+  <% else %>
+    <%= number_with_precision(restaurant.average_rating, :precision => 1)%>
+  <%  end %>
+  <%= render :partial => "shared/like", :locals => { :restaurant => restaurant } %>
 </p>

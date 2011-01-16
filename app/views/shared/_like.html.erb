@@ -1,7 +1,3 @@
 <% #TODO: refactor so shops etc. can use this partial too %>
 <%= restaurant.likes.count %> x
-<% if can? :like, restaurant %>
   <%= link_to "<3", like_restaurant_path(restaurant) %>
-<% else %>
-  <3
-<%  end %>

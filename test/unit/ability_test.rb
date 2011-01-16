@@ -36,7 +36,7 @@ class AbilityTest < ActiveSupport::TestCase
   test "guest can read Restaurants Comments and Reviews" do
     assert @guest.can?(:read, Restaurant)
     assert @guest.can?(:read, Comment)
-    assert @guest.can?(:read, Review)
+    assert @guest.can?(:read, Rating)
   end
   
   test "guest cannot delete, update or create anything" do

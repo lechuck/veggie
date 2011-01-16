@@ -14,16 +14,16 @@ class Ability
       else
         can :read, :all
         can :see_email, User, :id => user.id # user can only see her own email address
-        can :create, [Restaurant, Comment, Portion, Review]
+        can :create, [Restaurant, Comment, Portion, Rating]
         can [:like, :add_tags], Restaurant
-        can :delete, Comment, :user_id => user.id
+        can :delete, Comment, :user_id => user.id, :deleted => false
         can :update, User, :id => user.id
         can :update, Portion, :user_id => user.id
       end
 
       # guests can read stuff but not user details
     else
-      can :read, [Restaurant, Comment, Portion, Review]
+      can :read, [Restaurant, Comment, Portion, Rating]
       can :create, [User]
     end
   end

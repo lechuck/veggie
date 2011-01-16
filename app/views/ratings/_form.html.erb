@@ -1,0 +1,29 @@
+<%= form_for [@restaurant, @rating] do |f| %>
+  <% if @rating.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rating.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+      <ul>
+        <% @rating.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% [:food, :service, :environment].each do |attribute| %>
+    <div class ="field"> 
+      <%= f.label attribute %>
+      <% for i in 1..5 do %>
+          <%= f.radio_button attribute, i %>
+          <%= f.label "#{attribute}_#{i}", i %>
+
+        <% end %>
+      </div>
+    <% end %>
+
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>

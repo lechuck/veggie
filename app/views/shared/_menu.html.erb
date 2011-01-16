@@ -11,7 +11,7 @@
 		
 		<div class="city">
 		   	 
-			<% form_tag(:change_city, :remote => true) do %>
+			<%= form_tag(:change_city, :remote => true) do %>
 			
 				<%= select_tag :city, options_for_select(%w{Helsinki Tampere}, session[:city]), {:onchange => 'submit(); return false;'} %>
 				

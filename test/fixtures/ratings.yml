@@ -1,0 +1,29 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  restaurant: one
+  food: 1
+  service: 1
+  environment: 1
+
+two:
+  user_id: 1
+  restaurant: two
+  food: 3
+  service: 1
+  environment: 1
+
+bamboo1:
+  user: mikko
+  restaurant: bamboo
+  food: 5
+  service: 5
+  environment: 5
+
+bamboo2:
+  user: tony
+  restaurant: bamboo
+  food: 1
+  service: 1
+  environment: 1
