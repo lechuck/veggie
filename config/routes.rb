@@ -12,6 +12,7 @@ Veggie::Application.routes.draw do
     collection do
       get :tag
     end
+    # add_tags should be POST request
     member do
       get 'add_tags'
       get 'like'

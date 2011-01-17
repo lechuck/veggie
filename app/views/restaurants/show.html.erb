@@ -65,6 +65,13 @@
 
 </p>
 <p>
+<b> Kuvat: </b>
+<%@restaurant.restaurant_images.each do |image|%>
+  <%= image_tag image.photo.url(:small) %>
+<% end %>
+</p>
+
+<p>
   <b>Kommentit:</b>
   <%= render :partial => 'shared/comment', :collection => @restaurant.comments%>
 </p>

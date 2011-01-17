@@ -13,7 +13,6 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1/add_tags
   # refactor: move functionality down to model
   def add_tags
-    @restaurant = Restaurant.find(params[:id])
     @restaurant.add_tags(params[:taglist])
     @restaurant.save
     redirect_to @restaurant
@@ -39,7 +38,6 @@ class RestaurantsController < ApplicationController
   def index
     limit = 5 # how many restaurants are shown on toplists
     time_limit = 7
-    @restaurants = Restaurant.all
     @top_food = Restaurant.top_by_attribute('food', limit)
     @top_service = Restaurant.top_by_attribute('service', limit)
     @top_environment = Restaurant.top_by_attribute('environment', limit)
@@ -57,9 +55,8 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1
   # GET /restaurants/1.xml
   def show  
-    @restaurant = Restaurant.find(params[:id])
     #@tags = Restaurant.tag_counts_on(:tags)
-    @tags = Restaurant.find(@restaurant).tag_counts_on(:tags)
+    @tags = @restaurant.tag_counts_on(:tags)
     @food = @restaurant.average_rating_for :food
     @environment = @restaurant.average_rating_for :environment
     @service = @restaurant.average_rating_for :service
@@ -76,10 +73,8 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/new
   # GET /restaurants/new.xml
   def new
-    @restaurant = Restaurant.new
-    branch = Branch.new
-    @restaurant.branches << branch
-
+    @restaurant.branches.build
+    3.times {@restaurant.restaurant_images.build}
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @restaurant }
@@ -90,6 +85,8 @@ class RestaurantsController < ApplicationController
   def edit
     @restaurant = Restaurant.find(params[:id])
 
+    3.times { @restaurant.restaurant_images.build }
+
     add_crumb @restaurant.name, @restaurant
     add_crumb "edit", nil    
   end
@@ -97,19 +94,26 @@ class RestaurantsController < ApplicationController
   # POST /restaurants
   # POST /restaurants.xml
   def create
+    Rails.logger.info("PARAMS: #{params.inspect}")
+
     @restaurant = Restaurant.new(params[:restaurant])
     @restaurant.user = current_user
-    @branch = Branch.new(params[:branches])
-
-    Restaurant.transaction do
-      @restaurant.save!
-      @branch.restaurant=@restaurant
-      @branch.save!
-      redirect_to(@restaurant, :notice => 'Ravintola lisätty!')
+    if @restaurant.save
+      redirect_to @restaurant, :notice => 'Ravintola lisätty'
+    else
+      render :action => 'new'
     end
-  rescue ActiveRecord::RecordInvalid => e
-    @branch.valid?
-    render :action => :new
+    #  @branch = Branch.new(params[:branches])
+
+    #Restaurant.transaction do
+    #  @restaurant.save!
+    #      @branch.restaurant=@restaurant
+    #     @branch.save!
+    # redirect_to(@restaurant, :notice => 'Ravintola lisätty!')
+    # end
+    #rescue ActiveRecord::RecordInvalid => e
+    # @branch.valid?
+    # render :action => :new
   end
 
 =begin
