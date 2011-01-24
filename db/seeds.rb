@@ -3,8 +3,8 @@
 #
 # Examples:
 #
-#   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
-#   Mayor.create(:name => 'Daley', :city => cities.first)
+# cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
+# Mayor.create(:name => 'Daley', :city => cities.first)
 
 admin = User.new(:username => 'admin', :password => 'admin', :password_confirmation => 'admin',
   :email => 'admin@trolololo.fi', :admin => true)
@@ -18,8 +18,8 @@ end
 
 restaurants = ['Maoz', 'Lemon Grass', 'Chilli', 'Stadin kebab', 'Kasvisbaari', 'Kipsari', 'Marjon grilli', 'Tuktuk', 'Al Zobaidi']
 
-tags = %w(kiinalainen, pizza, take-away, thaimaalainen, tofu, malesialainen, intialainen, nepalilainen, falafel, hampurilainen,
-raw, lounas, kallis, halpa, kreikkalainen, etiopialainen, dal, currytofu, tyylikäs, edullinen)
+tags = %w(kiinalainen pizza take-away thaimaalainen tofu malesialainen intialainen nepalilainen falafel hampurilainen
+raw lounas kallis halpa kreikkalainen etiopialainen dal currytofu tyylikäs edullinen)
 
 portions = ['Kung-po tofu', 'Pita falafel', 'Rulla falafel', 'Falafel burger', 'Currytofu', 'Marinoidut herkkusienet',
   'Uppopaistetus rasvasuolasokeripallot', 'Hernefalafel', 'Seitanpihvi konjakkikastikkeella', 'Vartaassa grillattu kokonainen soijasika']
@@ -63,4 +63,3 @@ Restaurant.all.each do |restaurant|
     restaurant.ratings << rating
   end
 end
-  

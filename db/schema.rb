@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20110111082943) do
     t.text     "comment"
     t.integer  "user_id"
     t.integer  "restaurant_id"
-    t.boolean  "deleted"
+    t.boolean  "deleted",       :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -83,11 +83,6 @@ class Restaurant < ActiveRecord::Base
 
   def add_tags(tags)
     tag_list << tags.split(',')
-  end
-
-  def tag_list
-  
-  end
-  
+  end  
 
 end

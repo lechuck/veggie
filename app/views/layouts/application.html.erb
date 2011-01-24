@@ -12,6 +12,7 @@
 	<%= javascript_include_tag 'jquery-ui-1.8.7.custom.min' %>
 	
 	<script>
+		/*
 		$(function() {
 			var availableTags = [
 				"ActionScript",
@@ -37,10 +38,39 @@
 				"Scala",
 				"Scheme"
 			];
+
 			$( "#taglist" ).autocomplete({
 				source: availableTags
 			});
+		});			
+		*/
+
+	$(function() {
+		
+		$("#taglist").autocomplete({
+			source: "autocomplete.js",
+			minLength: 3
 		});
+		/*
+		$('#taglist').autocomplete({
+		    async: false,
+		    source: function(request, response) {
+		        $.ajax({
+		            url: "/tagautocomplete.js",
+		            dataType: "json",
+		            data: {term: request.term},
+		            success: function( data ) {
+		                response( data );
+										alert('gots response.');
+		            }
+		        });
+		    }           
+		});
+		*/
+	});			
+
+
+					
 		</script>	
 	
 </head>

@@ -33,11 +33,7 @@ class RestaurantsController < ApplicationController
     #@restaurants_with_tag = r.find(:first)
 
   end
-  
-  def taglist
-    @taglist = @restaurant.tag_list_on(:tags)
-    
-  end
+
 
   # GET /restaurants
   # GET /restaurants.xml
