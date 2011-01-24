@@ -46,27 +46,21 @@
 		*/
 
 	$(function() {
-		
-		$("#taglist").autocomplete({
-			source: "autocomplete.js",
-			minLength: 3
-		});
-		/*
 		$('#taglist').autocomplete({
-		    async: false,
+		    //async: true,
 		    source: function(request, response) {
 		        $.ajax({
-		            url: "/tagautocomplete.js",
+		            url: "/tagautocomplete.json",
 		            dataType: "json",
 		            data: {term: request.term},
 		            success: function( data ) {
 		                response( data );
-										alert('gots response.');
+										//alert('gots response:' + data);
 		            }
 		        });
 		    }           
 		});
-		*/
+		
 	});			
 
 

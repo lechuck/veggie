@@ -100,5 +100,4 @@ DEPENDENCIES
   paperclip (~> 2.3)
   rails (= 3.0.1)
   rails3-jquery-autocomplete
-  sqlite3-ruby
   sqlite3
