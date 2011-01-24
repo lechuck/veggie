@@ -6,6 +6,7 @@ class Restaurant < ActiveRecord::Base
   
   has_many :portions, :dependent => :destroy
   has_many :branches, :dependent => :destroy
+  accepts_nested_attributes_for :branches
 
   has_many :ratings, :dependent => :destroy
   has_many :raters, :through => :ratings, :source => :user
@@ -13,8 +14,12 @@ class Restaurant < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_many :commenters, :through => :comments, :source => :user
   
-  has_many :likes, :dependent => :delete_all
+  has_many :likes, :dependent => :destroy
   has_many :fans, :through => :likes, :source => :user
+
+  has_many :restaurant_images, :dependent => :destroy
+  accepts_nested_attributes_for :restaurant_images, :reject_if => lambda { |t| t[:photo].nil? }
+
   
   validates_presence_of :name, :info, :user
 
@@ -29,7 +34,7 @@ class Restaurant < ActiveRecord::Base
     FROM ratings, restaurants WHERE restaurants.id = ratings.restaurant_id
     GROUP BY restaurant_id ORDER BY rating DESC LIMIT ?", attribute, limit]
   end
-# returns list of top restaurants by overall rating
+  # returns list of top restaurants by overall rating
   def self.top_by_average_rating(limit)
     Restaurant.find_by_sql ["SELECT restaurants.*, (AVG(food)+AVG(service)+AVG(environment))/3 AS rating
     FROM restaurants, ratings WHERE restaurants.id = ratings.restaurant_id

@@ -5,7 +5,7 @@ gem 'rails', '3.0.1'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'sqlite3', :require => 'sqlite3'
 
 # veggie specific
 gem 'authlogic'
@@ -14,6 +14,9 @@ gem 'crummy', '>= 1.0.1'
 gem "cancan"
 gem 'rails3-jquery-autocomplete'
 gem 'mocha'
+gem "paperclip", "~> 2.3"
+gem "nifty-generators", :group => :development
+gem "ajaxful_rating", :git => "git://github.com/edgarjs/ajaxful-rating.git", :branch => "rails3"
 
 # Use unicorn as the web server
 # gem 'unicorn'

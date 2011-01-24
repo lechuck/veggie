@@ -1,47 +1,72 @@
-<%= form_for(@restaurant) do |f| %>
+<%= form_for(@restaurant, :html => {:multipart => true}) do |f| %>
   <% if @restaurant.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@restaurant.errors.count, "error") %> prohibited this restaurant from being saved:</h2>
 
       <ul>
-      <% @restaurant.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @restaurant.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name, 'Nimi' %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-	<%= fields_for :branches do |branch| %>
-    <%= branch.label :street %><br />
-    <%= branch.text_field :street %>
-		
-    <%= branch.label :city %><br />
-    <%= branch.text_field :city %>
-
-    <%= branch.label :hours %><br />
-    <%= branch.text_field :hours %>
-
-    <%= branch.label :phone %><br />
-    <%= branch.text_field :phone %>
-
-    <%= branch.label :email %><br />
-    <%= branch.text_field :email %>
-
-	<% end %>
-  </div>
-  <div class="field">
-    <%= f.label :website %><br />
+    <%= f.label :website, 'Nettisivut' %><br />
     <%= f.text_field :website %>
   </div>
   <div class="field">
-    <%= f.label :info %><br />
+    <%= f.label :info, 'Kuvaus' %><br />
     <%= f.text_area :info %>
   </div>
+
+
+  <% f.fields_for :branches do |builder| %>
+    <div class="field">
+      <%= builder.label :street, "Katuosoite" %><br />
+      <%= builder.text_field :street%>
+    </div>
+
+    <div class="field">
+      <%= builder.label :city, "Kaupunki" %><br />
+      <%= builder.text_field :city%>
+    </div>
+
+    <div class="field">
+      <%= builder.label :hours, "Aukioloajat" %><br />
+      <%= builder.text_field :hours%>
+    </div>
+
+    <div class="field">
+      <%= builder.label :phone, "Puhelinnumero" %><br />
+      <%= builder.text_field :phone%>
+    </div>
+
+    <div class="field">
+      <%= builder.label :email, "Sähköposti" %><br />
+      <%= builder.text_field :email%>
+    </div>
+  <% end %>
+
+
+  <%= f.fields_for :restaurant_images do |builder| %>
+    <div class="field">
+      <%= builder.label :caption, "Kuvateksti" %><br />
+      <%= builder.text_field :caption %>
+    </div>
+
+    <div class="field">
+
+      <%= builder.label :photo, "Kuva" %><br />
+      <%= builder.file_field :photo %>
+    </div>
+
+  <% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>
