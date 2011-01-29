@@ -36,8 +36,9 @@
   <b>Tunnelma:</b>
   <%= @environment %>
 </p
+
 <p>
-  <%= link_to "Add review", new_restaurant_rating_path(@restaurant) %>
+  <%= render :partial =>'ratings/form' %>
 </p>
 
 <p>

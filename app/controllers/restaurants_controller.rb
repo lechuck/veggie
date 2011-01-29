@@ -55,11 +55,11 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1
   # GET /restaurants/1.xml
   def show  
-    #@tags = Restaurant.tag_counts_on(:tags)
     @tags = @restaurant.tag_counts_on(:tags)
     @food = @restaurant.average_rating_for :food
     @environment = @restaurant.average_rating_for :environment
     @service = @restaurant.average_rating_for :service
+    @rating = find_rating
 
     add_crumb @restaurant.name, @restaurant
 
@@ -103,32 +103,7 @@ class RestaurantsController < ApplicationController
     else
       render :action => 'new'
     end
-    #  @branch = Branch.new(params[:branches])
-
-    #Restaurant.transaction do
-    #  @restaurant.save!
-    #      @branch.restaurant=@restaurant
-    #     @branch.save!
-    # redirect_to(@restaurant, :notice => 'Ravintola lisätty!')
-    # end
-    #rescue ActiveRecord::RecordInvalid => e
-    # @branch.valid?
-    # render :action => :new
   end
-
-=begin
-respond_to do |format|
-if @restaurant.save
-format.html { redirect_to(@restaurant, :notice => 'Restaurant was successfully created.') }
-format.xml  { render :xml => @restaurant, :status => :created, :location => @restaurant }
-else
-format.html { render :action => "new" }
-format.xml  { render :xml => @restaurant.errors, :status => :unprocessable_entity }
-end
-end
-=end    
-
-  #huh
 
   # PUT /restaurants/1
   # PUT /restaurants/1.xml
@@ -158,8 +133,18 @@ end
     end
   end
 
-  def top
-    @top = Rating.find(:all, :select => 'restaurant_id, avg(food) as foodavg', :order => 'foodavg DESC', :group => 'restaurant_id', :limit => 5)
+  private
+
+  # returns the object the form is modifying: either a new rating (if the current
+  # user has never rated this object before) or the user’s existing rating for
+  # this object.
+  def find_rating
+    if rating = current_user.ratings.find_by_restaurant_id(params[:id])
+      rating
+    else
+      current_user.ratings.new
+    end
   end
+
 
 end
