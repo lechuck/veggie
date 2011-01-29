@@ -13,12 +13,10 @@
 		   	 
 			<%= form_tag(:change_city, :remote => true) do %>
 			
-				<%= select_tag :city, options_for_select(%w{Helsinki Tampere}, session[:city]) %>
-				<%= submit_tag 'submittail' %>
+				<%= select_tag :city, options_for_select(%w{Helsinki Tampere}, session[:city]), {:onchange => 'submit(); return false;'} %>
 				
 			<% end %>
 			
-			city in session : <%= session[:city] %>
 		</div>
 		
 		<div class="add_restaurant">

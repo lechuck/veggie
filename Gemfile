@@ -12,6 +12,7 @@ gem 'authlogic'
 gem 'acts-as-taggable-on'
 gem 'crummy', '>= 1.0.1'
 gem "cancan"
+gem 'rails3-jquery-autocomplete'
 gem 'mocha'
 gem "paperclip", "~> 2.3"
 gem "nifty-generators", :group => :development

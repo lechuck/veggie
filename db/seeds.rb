@@ -3,8 +3,8 @@
 #
 # Examples:
 #
-#   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
-#   Mayor.create(:name => 'Daley', :city => cities.first)
+# cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
+# Mayor.create(:name => 'Daley', :city => cities.first)
 
 admin = User.new(:username => 'admin', :password => 'admin', :password_confirmation => 'admin',
   :email => 'admin@trolololo.fi', :admin => true)
@@ -63,4 +63,3 @@ Restaurant.all.each do |restaurant|
     restaurant.ratings << rating
   end
 end
-  

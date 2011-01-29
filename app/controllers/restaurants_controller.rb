@@ -33,6 +33,7 @@ class RestaurantsController < ApplicationController
 
   end
 
+
   # GET /restaurants
   # GET /restaurants.xml
   def index

@@ -1,6 +1,8 @@
 Veggie::Application.routes.draw do
 
 
+  get "tag_autocomplete_searches/Index"
+
   resources :restaurants do
     # This will also create routing helpers such as restaurant_portions_url and edit_restaurant_portion_path. 
     resources :portions, :except => [:index, :show]
@@ -29,6 +31,9 @@ Veggie::Application.routes.draw do
   #match 'add_tags' => 'restaurant#add_tags', :as => :add_tags
   #match ':restaurants/:id/add_tags' => 'restaurant#add_tags', :as => :add_tags
   
+  #resources :tag_autocomplete_searches, :only => [:index], :as => 'tagautocomplete'
+  match 'tagautocomplete' => 'tag_autocomplete_searches#index', :as => :tagautocomplete
+    
   root :to => 'dashboard#index', :as => 'dashboard'
   
   # The priority is based upon order of creation:

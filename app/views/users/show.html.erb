@@ -1,5 +1,10 @@
 <p id="notice"><%= notice %></p>
 
+<h3>Käyttäjä <%= @user.username %></h3>
+<p> Arvostellut <%=  @user.reviews.count %> ravintolaa.</p>
+<p> Kirjoittanut <%= @user.comments.count %> kommenttia. </p>
+<p> Tykkää:
+
 <h1> <%=@user.username%></h1>
 <p>
   <%= render :partial => 'user_stats', :locals => {:user => @user} %>
