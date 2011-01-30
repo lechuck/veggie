@@ -140,6 +140,8 @@ class RestaurantsController < ApplicationController
   # user has never rated this object before) or the user’s existing rating for
   # this object.
   def find_rating
+
+    return Rating.new unless current_user
     if rating = current_user.ratings.find_by_restaurant_id(params[:id])
       rating
     else

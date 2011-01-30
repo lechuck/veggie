@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   load_and_authorize_resource :restaurant
   load_and_authorize_resource :through => :restaurant
 
-  add_crumb("Restaurants") { |instance| instance.send :restaurants_path }
+  add_crumb("Ravintolat") { |instance| instance.send :restaurants_path }
 
   def new
     @comment = Comment.new
@@ -13,8 +13,13 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.create(params[:comment])
     @comment.user = current_user
+    flash[:notice] = "Kiitos kommentistasi." # for the js response
+
     if (@restaurant.comments << @comment)
-      redirect_to(@restaurant, :notice => "Kommenttisi lisättiin")
+      respond_to do |format|
+        format.html {redirect_to(@restaurant, :notice => "Kommenttisi lisättiin")}
+        format.js
+      end
     else
       render :action => "new"
     end
@@ -31,7 +36,10 @@ class CommentsController < ApplicationController
   def delete
     @comment.deleted = true
     @comment.save
-    redirect_to :back, :notice => 'Kommentti on poistettu.'
+    respond_to do |format |
+     format.html { redirect_to @restaurant, :notice => 'Kommentti on poistettu.'}
+     format.js
+    end
   end
 
 end

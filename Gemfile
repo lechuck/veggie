@@ -15,8 +15,9 @@ gem "cancan"
 gem 'rails3-jquery-autocomplete'
 gem 'mocha'
 gem "paperclip", "~> 2.3"
-gem "nifty-generators", :group => :development
-gem "ajaxful_rating", :git => "git://github.com/edgarjs/ajaxful-rating.git", :branch => "rails3"
+gem 'jquery-rails', '>= 0.2.6'
+#gem "nifty-generators", :group => :development
+#gem "ajaxful_rating", :git => "git://github.com/edgarjs/ajaxful-rating.git", :branch => "rails3"
 
 # Use unicorn as the web server
 # gem 'unicorn'

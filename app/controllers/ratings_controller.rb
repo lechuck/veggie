@@ -7,7 +7,6 @@ class RatingsController < ApplicationController
 
   # GET /restaurants/:restaurant_id/ratings/new
   def new
-    @rating = Rating.new
     add_crumb @restaurant.name, @restaurant
     add_crumb "Uusi arvostelu", nil
 
@@ -19,7 +18,6 @@ class RatingsController < ApplicationController
 
   # POST /restaurants/:restaurant:id/ratings
   def create
-    @rating = Rating.new(params[:rating])
     @rating.user = current_user
     if (@restaurant.ratings << @rating)
       respond_to do |format|

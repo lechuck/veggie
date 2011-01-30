@@ -1,0 +1,5 @@
+$/* Highlight the deleted comment */
+$("#comment_<%= @comment.id %>").html("<%= escape_javascript(render(@comment)) %>");
+
+/* Highlight the deleted comment */
+$("#comment_<%= @comment.id %>").effect("highlight", {}, 3000);
