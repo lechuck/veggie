@@ -10,40 +10,9 @@
 	<%= javascript_include_tag 'jquery-1.4.4.min.js'%>
 	<%= javascript_include_tag 'autocomplete-rails.js' %>
 	<%= javascript_include_tag 'jquery-ui-1.8.7.custom.min' %>
+  <%= csrf_meta_tag %>
 	
 	<script>
-		/*
-		$(function() {
-			var availableTags = [
-				"ActionScript",
-				"AppleScript",
-				"Asp",
-				"BASIC",
-				"C",
-				"C++",
-				"Clojure",
-				"COBOL",
-				"ColdFusion",
-				"Erlang",
-				"Fortran",
-				"Groovy",
-				"Haskell",
-				"Java",
-				"JavaScript",
-				"Lisp",
-				"Perl",
-				"PHP",
-				"Python",
-				"Ruby",
-				"Scala",
-				"Scheme"
-			];
-
-			$( "#taglist" ).autocomplete({
-				source: availableTags
-			});
-		});			
-		*/
 
 	$(function() {
 		
@@ -53,8 +22,6 @@
 		function extractLast( term ) {
 			return split( term ).pop();
 		}
-		
-		
 		
 		$('#taglist')
 		// don't navigate away from the field on tab when selecting an item
@@ -94,43 +61,41 @@
 		       
 		});
 		
-	});			
-
-
-					
-		</script>	
+	});		
 	
-</head>
-<body>
-	
-	<div id="notice">
-		<p id="notice"><%= notice %></p>
-	</div>
+	</script	
 
-			
-	<div>
+  </head>
+  <body>
+
+    <div id="notice">
+      <p id="notice"><%= notice %></p>
+    </div>
+
+
+    <div>
 		Olet täällä: 
-		<%= render_crumbs %>
-	</div>
-	
-	<%= render "shared/menu" %>
-	<p>
-  <div id="nav">
-		<% if current_user %>
-			Moi <%= link_to current_user.username, current_user %>! 
-      <%= link_to "Muokkaa profiilia", edit_user_path(current_user.id)%>
-			<%= link_to "Kirjaudu ulos", :logout %>
-		<% else %>    	
-			<!-- <%= link_to "Login", :login %> -->	
-			<%= render 'user_sessions/form' %>
-			tai <%= link_to "Luo profiili", new_user_path%>
-			
-		<% end %>
-  </div>
+      <%= render_crumbs %>
+    </div>
+
+    <%= render "shared/menu" %>
+    <p>
+    <div id="nav">
+      <% if current_user %>
+        Moi <%= link_to current_user.username, current_user %>!
+        <%= link_to "Muokkaa profiilia", edit_user_path(current_user.id)%>
+        <%= link_to "Kirjaudu ulos", :logout %>
+      <% else %>
+        <!-- <%= link_to "Login", :login %> -->
+        <%= render 'user_sessions/form' %>
+        tai <%= link_to "Luo profiili", new_user_path%>
+
+      <% end %>
+    </div>
 
 
 
-<%= yield %>
+    <%= yield %>
 
-</body>
+  </body>
 </html>

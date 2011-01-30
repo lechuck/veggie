@@ -22,7 +22,10 @@ class RatingsController < ApplicationController
     @rating = Rating.new(params[:rating])
     @rating.user = current_user
     if (@restaurant.ratings << @rating)
-      redirect_to(@restaurant, :notice => 'rating was successfully created.')
+      respond_to do |format|
+        format.html {redirect_to(@restaurant, :notice => 'rating was successfully created.') }
+        format.js
+      end
     else
       render :action => "new"
     end
@@ -31,7 +34,10 @@ class RatingsController < ApplicationController
   # PUT /restaurants/:restaurant:id/ratings/:id
   def update
     if @rating.update_attributes(params[:rating])
-      redirect_to(@restaurant, :notice => 'rating was successfully updated.')
+      respond_to do |format|
+        format.html {redirect_to(@restaurant, :notice => 'rating was successfully updated.')}
+        format.js
+      end
     else
       render :action => "edit"
     end
