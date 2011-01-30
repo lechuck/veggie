@@ -66,20 +66,30 @@
 
 </p>
 <p>
-<b> Kuvat: </b>
-<%@restaurant.restaurant_images.each do |image|%>
-  <%= image_tag image.photo.url(:small) %>
-<% end %>
+  <b> Kuvat: </b>
+  <%@restaurant.restaurant_images.each do |image|%>
+    <%= image_tag image.photo.url(:small) %>
+  <% end %>
 </p>
 
 <p>
   <b>Kommentit:</b>
-  <%= render :partial => 'shared/comment', :collection => @restaurant.comments%>
+  <span id="comments_count"><%= pluralize(@restaurant.comments.count, "Comment") %></span>
+<div id="comments">
+  <%= render :partial => @restaurant.comments, :locals => { :list => true } %>
+</div>
 </p>
 
-<p>  <%=link_to "Lisää kommentti", new_restaurant_comment_path(@restaurant)%> </p>
+<div id="comment-notice"></div>
+
+<h2>Lisää oma kommenttisi</h2>
+<% form_for [@restaurant, Comment.new], :remote => true do |f| %>
+  <%= f.label :comment, "Kommentti" %><br />
+  <%= f.text_area :comment, :rows => 8 %><br />
+  <%= f.submit "Lähetä" %>
+<% end %>
 
 <% if can? :edit, @restaurant %>
-  <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
+  <%= link_to 'Muokkaa ravintolan tietoja', edit_restaurant_path(@restaurant) %> |
 <%  end %>
-<%= link_to 'Back', restaurants_path %>
+<%= link_to 'Kaikki ravintolat', restaurants_path %>

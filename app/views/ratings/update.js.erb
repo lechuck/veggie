@@ -1,0 +1,10 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%= "update.js" %>
+$('body').html("
+<h1><%= escape_javaScript(@restaurant.name) %></h1>").append("<%= escape_javaScript(@restaurant.info) %>
+");
+

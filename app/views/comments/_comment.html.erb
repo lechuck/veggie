@@ -1,0 +1,13 @@
+<% div_for comment do %>
+  <span class="dateandoptions">
+    <%=  comment.username %> sanoi <%= comment.created_at.strftime('%d.%m.%Y')%> :
+  </span>
+    <%= content_tag(:p, comment.comment, :class => "comment-body") %>
+<%  end %>
+  <p>
+    <% if can? :delete, comment %>
+      <%= link_to "Poista kommentti", delete_restaurant_comment_path(comment.restaurant, comment), :method => :delete, :class => :delete, :confirm => "Haluatko varmasti poistaa kommentin?"%>
+    <% end %>
+  </p>
+
+
