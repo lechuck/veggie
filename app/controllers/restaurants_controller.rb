@@ -13,7 +13,14 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1/add_tags
   # refactor: move functionality down to model
   def add_tags
-    @restaurant.add_tags(params[:taglist])
+    # clean the trailing
+    
+    taglist = params[:taglist].strip
+    if taglist[-1..-1].eql?(',')
+      taglist = taglist[0,taglist.length-1]
+    end
+    
+    @restaurant.add_tags(taglist)
     @restaurant.save
     redirect_to @restaurant
 
@@ -28,6 +35,7 @@ class RestaurantsController < ApplicationController
   def tag
     # Search all restaurants with tag
     @tag_name = params[:id]
+    logger.info('tag:' + @tag_name)
     @restaurants_with_tag = Restaurant.tagged_with(@tag_name)
     #@restaurants_with_tag = r.find(:first)
 
