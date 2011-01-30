@@ -3,22 +3,32 @@ class TagAutocompleteSearchesController < ApplicationController
   respond_to :json
   
   def index
-    #logger.info('no niin' + params[:term]);
 
+    @tags = ''
+    
     # Search the tags
-    query = "SELECT name FROM tags"
     unless params[:term].nil?
-      query = query + " WHERE name like '%" + params[:term] + "%'"
+
+      word_index = params[:term].rindex(',')
+      if word_index.nil?
+        word = params[:term]
+      else 
+        word = params[:term][word_index+1, params[:term].length]
+
+      end
+
+      word = word.strip
+      
+      logger.info('hehe:' + word)
+      
+      query = "SELECT name FROM tags"
+      query = query + " WHERE name like '%" + word + "%'"
+
+      @tags = Restaurant.connection.select_all(query).map{|x| x['name']}
     
     end
-    
-    #@tags = Restaurant.connection.select_all("SELECT name FROM tags WHERE name like '%aw%'")    
-    #@tags = Restaurant.connection.select_all("SELECT name FROM tags WHERE name like '%params[:term]%'").map{|x| x['name']}
-    @tags = Restaurant.connection.select_all(query).map{|x| x['name']}
+      
     @tags = @tags.to_json      
-    
-    #@alltags = %w(abc tag another blah)
-    #@alltags = @alltags.to_json
 
      respond_to do |format|
        format.json  { render :json => @tags }       
