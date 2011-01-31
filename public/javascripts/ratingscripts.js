@@ -1,8 +1,13 @@
 // Sets up the stars to match the data when the page is loaded.
 $(function () {
-    var checkedId = $('form.rating_ballot > div.field > input:checked').attr('id');
-    $('form.rating_ballot > div.field > label[for=' + checkedId + ']').prevAll().andSelf().addClass('bright');
+    $('form.rating_ballot > div.field > input:checked').each(
+        function() {
+            var checkedId = $(this).attr('id');
+            $('label[for=' + checkedId + ']').prevAll().andSelf().addClass('bright');
+        }
+        )
 });
+
 
 $(document).ready(function() {
     // Makes stars glow on hover.
@@ -11,7 +16,7 @@ $(document).ready(function() {
             $(this).prevAll().andSelf().addClass('glow');
         },function() {  // mouseout
             $(this).siblings().andSelf().removeClass('glow');
-    });
+        });
 
     // Makes stars stay glowing after click.
     $('form.rating_ballot > .field > label').click(function() {
@@ -23,16 +28,16 @@ $(document).ready(function() {
 
 /* Slides down rating-form in views/restaurant/show.html.erb */
 $(document).ready(function(){
-$("#add_review").click(function(){
-    $("#ratings_form").slideDown("slow");
-    $('#add_review').hide();
-  });
+    $("#add_review").click(function(){
+        $("#ratings_form").slideDown("slow");
+        $('#add_review').hide();
+    });
 });
 
 /* Slides up rating-form in views/restaurant/show.html.erb */
 $(document).ready(function(){
-$(".toggle_ratings_form").click(function(){
-    $("#ratings_form").slideUp("slow");
-    $("#add_review").show();
-  });
+    $(".toggle_ratings_form").click(function(){
+        $("#ratings_form").slideUp("slow");
+        $("#add_review").show();
+    });
 });

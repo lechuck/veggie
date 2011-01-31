@@ -13,6 +13,7 @@
 
   <% [:food, :service, :environment].each do |attribute| %>
     <div class ="field">
+
       <%= f.label attribute %>
       <% for i in 1..5 do %>
           <%= f.radio_button attribute, i, :class => 'rating_button' %>
