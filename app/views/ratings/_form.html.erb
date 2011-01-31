@@ -1,4 +1,4 @@
-<%= form_for [@restaurant, @rating], :remote => true do |f| %>
+<%= form_for [@restaurant, @rating], :remote => true, :html => { :class => 'rating_ballot'} do |f| %>
   <% if @rating.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@rating.errors.count, "error") %> prohibited this review from being saved:</h2>
@@ -12,11 +12,11 @@
   <% end %>
 
   <% [:food, :service, :environment].each do |attribute| %>
-    <div class ="field"> 
+    <div class ="field">
       <%= f.label attribute %>
       <% for i in 1..5 do %>
-          <%= f.radio_button attribute, i %>
-          <%= f.label "#{attribute}_#{i}", i %>
+          <%= f.radio_button attribute, i, :class => 'rating_button' %>
+          <%= f.label "#{attribute}_#{i}", content_tag(:span, i), :class => 'rating' %>
 
         <% end %>
       </div>
@@ -25,5 +25,7 @@
 
     <div class="actions">
       <%= f.submit %>
+      <button type="button" class="toggle_ratings_form">Peru</button>
     </div>
+
   <% end %>

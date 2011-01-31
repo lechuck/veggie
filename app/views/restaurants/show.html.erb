@@ -28,18 +28,25 @@
   <%= @restaurant.phone %>
 </p
 
-<p>
-  <b>Ruoka:</b>
-  <%= @food %>
-  <b>Palvelu:</b>
-  <%= @service %>
-  <b>Tunnelma:</b>
-  <%= @environment %>
-</p
+<div id ="ratings">
+  <%= render :partial => 'average_rating', :locals => {:food => @food, :service => @service, :environment => @environment} %>
+</div>
+<div id="ratings-notice"></div>
 
-<p>
+<% content_for :script do %>
+  <%= javascript_include_tag 'ratingscripts.js'  %>
+<% end %>
+
+<div id ="ratings_form">
   <%= render :partial =>'ratings/form' %>
-</p>
+</div>
+<button type="button" id="add_review">
+  <%if @restaurant.raters.include?(current_user)%>
+    Muokkaa arvosteluasi
+  <%else%>
+    Lisää oma arvostelu
+  <%end%>
+</button>
 
 <p>
   <b>Portions:</b>
@@ -83,7 +90,7 @@
 <div id="comment-notice"></div>
 
 <h2>Lisää oma kommenttisi</h2>
-<% form_for [@restaurant, Comment.new], :remote => true do |f| %>
+<%= form_for [@restaurant, Comment.new], :remote => true do |f| %>
   <%= f.label :comment, "Kommentti" %><br />
   <%= f.text_area :comment, :rows => 8 %><br />
   <%= f.submit "Lähetä" %>

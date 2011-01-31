@@ -19,19 +19,26 @@ class RatingsController < ApplicationController
   # POST /restaurants/:restaurant:id/ratings
   def create
     @rating.user = current_user
+    flash[:notice] = "Kiitos arvostelustasi." # for the js response
     if (@restaurant.ratings << @rating)
+      find_restaurant_averages
       respond_to do |format|
         format.html {redirect_to(@restaurant, :notice => 'rating was successfully created.') }
-        format.js
+        format.js {render 'update'}
       end
     else
-      render :action => "new"
+      respond_to do |format|
+        format.html{ render :action => "new"}
+        format.js {render 'error'}
+      end
     end
   end
 
   # PUT /restaurants/:restaurant:id/ratings/:id
   def update
+    flash[:notice] = "Kiitos arvostelustasi." # for the js response
     if @rating.update_attributes(params[:rating])
+      find_restaurant_averages
       respond_to do |format|
         format.html {redirect_to(@restaurant, :notice => 'rating was successfully updated.')}
         format.js
@@ -48,5 +55,11 @@ class RatingsController < ApplicationController
   end
 
   private
+
+  def find_restaurant_averages
+    @food = @restaurant.average_rating_for :food
+    @environment = @restaurant.average_rating_for :environment
+    @service = @restaurant.average_rating_for :service
+  end
   
 end

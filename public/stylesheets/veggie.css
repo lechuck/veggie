@@ -1,4 +1,17 @@
 #jqueryexample {
 	background-color: yellow;
-	
 }
+
+#ratings_form
+{
+height:120px;
+display:none;
+
+}
+form.rating_ballot input.rating_button { display: none; }
+/* input.rating_button { display: none; }*/
+form.rating_ballot label.rating { cursor: pointer; display: block; height: 25px; width: 25px; float: left; }
+form.rating_ballot label.rating span { display: none; }
+form.rating_ballot label.rating { background-image: url(../images/star_dim.png); }
+form.rating_ballot label.rating.bright { background-image: url(../images/star_bright.png); }
+form.rating_ballot label.rating.glow { background-image: url(../images/star_glow.png); }
