@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
 
   protect_from_forgery
-  add_crumb "Home", '/'  
+  add_crumb "Home", '/'
   
   helper_method :current_user
   before_filter :new_user_session

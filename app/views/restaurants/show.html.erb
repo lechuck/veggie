@@ -31,7 +31,6 @@
 <div id ="ratings">
   <%= render :partial => 'average_rating', :locals => {:food => @food, :service => @service, :environment => @environment} %>
 </div>
-<div id="ratings-notice"></div>
 
 <% content_for :script do %>
   <%= javascript_include_tag 'ratingscripts.js'  %>
