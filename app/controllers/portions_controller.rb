@@ -37,13 +37,11 @@ class PortionsController < ApplicationController
   end
 
   # DELETE /restaurants/:restaurant_id/portions/:id
-  # DELETE /restaurants/:restaurant_id/portions/:id.xml
   def destroy
     @portion.destroy
 
     respond_to do |format|
       format.html { redirect_to @restaurant }
-      format.xml  { head :ok }
     end
   end
 
