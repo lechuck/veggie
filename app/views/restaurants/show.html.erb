@@ -95,6 +95,8 @@
   <%= f.submit "Lähetä" %>
 <% end %>
 
+  <%= link_to "Lisää kommentti", new_restaurant_comment_path(@restaurant) %>
+
 <% if can? :edit, @restaurant %>
   <%= link_to 'Muokkaa ravintolan tietoja', edit_restaurant_path(@restaurant) %> |
 <%  end %>

@@ -12,10 +12,10 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.create(params[:comment])
+    @comment.deleted = false
     @comment.user = current_user
-    flash[:notice] = "Kiitos kommentistasi." # for the js response
-
     if (@restaurant.comments << @comment)
+      flash[:notice] = "Kiitos kommentistasi." # for the js response
       respond_to do |format|
         format.html {redirect_to(@restaurant, :notice => "Kommenttisi lisättiin")}
         format.js
@@ -37,8 +37,8 @@ class CommentsController < ApplicationController
     @comment.deleted = true
     @comment.save
     respond_to do |format |
-     format.html { redirect_to @restaurant, :notice => 'Kommentti on poistettu.'}
-     format.js
+      format.html { redirect_to @restaurant, :notice => 'Kommentti on poistettu.'}
+      format.js
     end
   end
 
