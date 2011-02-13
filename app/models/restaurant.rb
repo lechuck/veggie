@@ -20,8 +20,8 @@ class Restaurant < ActiveRecord::Base
   has_many :restaurant_images, :dependent => :destroy
   accepts_nested_attributes_for :restaurant_images, :reject_if => lambda { |t| t[:photo].nil? }
 
-  
   validates_presence_of :name, :info, :user
+  validates_uniqueness_of :name
 
   delegate :username, :to => :user
 
@@ -87,6 +87,11 @@ class Restaurant < ActiveRecord::Base
   end
 
   def add_tags(tags)
+       # clean the trailing
+      tags = tags.strip
+      if tags[-1..-1].eql?(',')
+        tags = tags[0,tags.length-1]
+      end
     tag_list << tags.split(',')
   end  
 

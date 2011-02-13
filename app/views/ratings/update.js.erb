@@ -3,7 +3,7 @@ $("#ratings_form").slideUp("slow");
 /* replaces the html */
 $("#ratings").html("<%=escape_javascript(render :partial => 'restaurants/average_rating',:locals => {:food => @food, :service => @service, :environment => @environment})%>");
 /* displays a notice about rating added succesfully */
-$("#ratings-notice").html('<div class="flash notice"><%= escape_javascript(flash.delete(:notice)) %></div>');
+$("#ratings_notice").html('<div class="flash notice"><%= escape_javascript(flash.delete(:notice)) %></div>');
 /* highlights the ratings */
 $("#ratings").effect("highlight", {}, 3000);
 

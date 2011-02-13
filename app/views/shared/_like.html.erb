@@ -1,3 +1,6 @@
+<% if alert %> 
+  <%= content_tag(:span, alert, :id => 'error_explanation')%>
+<%end%>
 <% #TODO: refactor so shops etc. can use this partial too %>
 <%= restaurant.likes.count %> x
-  <%= link_to "<3", like_restaurant_path(restaurant) %>
+  <%= link_to "<3", like_restaurant_path(restaurant), :method => :post %>

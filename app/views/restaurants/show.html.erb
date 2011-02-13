@@ -35,6 +35,7 @@
 <% content_for :script do %>
   <%= javascript_include_tag 'ratingscripts.js'  %>
 <% end %>
+<div id="ratings_notice"></div>
 
 <div id ="ratings_form">
   <%= render :partial =>'ratings/form' %>
@@ -63,12 +64,23 @@
     <%= link_to tag.name, { :action => :tag, :id => tag.name }, :class => css_class %>
   <% end %>
 
-  <%= form_tag({:controller => restaurants_path, :action => 'add_tags'}, :method => "get") do %>
+  <%= form_tag({:controller => restaurants_path, :action => 'add_tags'}, :method => 'post') do %>
+    <% if @restaurant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@restaurant.errors.count, "error") %> prohibited this restaurant from being saved:</h2>
 
-    <%= label_tag(:taglist, "Add tags:") %>
-    <%= text_field_tag(:taglist) %>
-    <%= submit_tag("Add") %>
+      <ul>
+        <% @restaurant.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
+
+  <%= label_tag(:taglist, "Add tags:") %>
+  <%= text_field_tag(:taglist) %>
+  <%= submit_tag("Add") %>
+<% end %>
 
 </p>
 <p>
@@ -95,7 +107,7 @@
   <%= f.submit "Lähetä" %>
 <% end %>
 
-  <%= link_to "Lisää kommentti", new_restaurant_comment_path(@restaurant) %>
+<%= link_to "Lisää kommentti", new_restaurant_comment_path(@restaurant) %>
 
 <% if can? :edit, @restaurant %>
   <%= link_to 'Muokkaa ravintolan tietoja', edit_restaurant_path(@restaurant) %> |

@@ -15,7 +15,7 @@ class Ability
         can :read, :all
         can :see_email, User, :id => user.id # user can only see her own email address
         can :create, [Restaurant, Comment, Portion, Rating]
-        can :update, Rating
+        can :update, Rating, :user_id => user.id # user can update her own ratings
         can [:like, :add_tags], Restaurant
         can :delete, Comment, :user_id => user.id, :deleted => false
         can :update, User, :id => user.id

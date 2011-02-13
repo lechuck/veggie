@@ -1,5 +1,5 @@
 <h1>Found <%= @restaurants_with_tag.count %> restaurants with tag '<%= @tag_name %>'</h1>
 
 <% @restaurants_with_tag.each do |re| %>
-	<%= re.name %>
+	<%= link_to re.name, re %>
 <% end %>

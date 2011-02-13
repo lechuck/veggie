@@ -9,7 +9,6 @@ class RatingsController < ApplicationController
   def new
     add_crumb @restaurant.name, @restaurant
     add_crumb "Uusi arvostelu", nil
-
   end
 
   # GET /restaurants/:restaurant:id/ratings/:id/edit
@@ -28,7 +27,7 @@ class RatingsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html{ render :action => "new"}
+        format.html{render :action => "new"}
         format.js {render 'error'}
       end
     end
@@ -36,8 +35,8 @@ class RatingsController < ApplicationController
 
   # PUT /restaurants/:restaurant:id/ratings/:id
   def update
-    flash[:notice] = "Kiitos arvostelustasi." # for the js response
     if @rating.update_attributes(params[:rating])
+      flash[:notice] = "Kiitos arvostelustasi." # for the js response
       find_restaurant_averages
       respond_to do |format|
         format.html {redirect_to(@restaurant, :notice => 'rating was successfully updated.')}
@@ -51,7 +50,7 @@ class RatingsController < ApplicationController
   # DELETE /restaurants/:restaurant:id/ratings/:id
   def destroy
     @rating.destroy
-    redirect_to(ratings_url)
+    redirect_to @restaurant
   end
 
   private

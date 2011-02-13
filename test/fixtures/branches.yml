@@ -1,25 +1,25 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  restaurant: one
-  street: MyString
-  city: MyString
-  phone: MyString
-  hours: MyString
-  email: MyString
-
-two:
-  restaurant: two
-  street: MyString
-  city: MyString
-  phone: MyString
-  hours: MyString
-  email: MyString
-
-bamboo:
+bamboo_branch:
   restaurant: bamboo
   street: Annankatu 12
   city: Helsinki
   phone: 09-123132
   hours: 11-22
   email: info@bamboo.com
+
+maoz_branch:
+  restaurant: maoz
+  street: Hämeentie 32
+  city: Helsinki
+  phone: 09-666666
+  hours: 00-24
+  email: falafelz@maoz.com
+
+happy_garden_branch:
+  restaurant: happy_garden
+  street: Kinaporinkatu 2
+  city: Helsinki
+  phone: 0700-77777
+  hours: 11-22
+  email: greattofufoods@this.restaurant.fi

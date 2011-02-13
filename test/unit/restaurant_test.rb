@@ -14,6 +14,22 @@ class RestaurantTest < ActiveSupport::TestCase
     assert !@restaurant.save
   end
 
+  test "a restaurant can be created" do
+    new_restaurant = Restaurant.new
+    new_restaurant.user = @user
+    new_restaurant.info = "This is a new restaurant"
+    new_restaurant.name = @restaurant.name.reverse
+    assert new_restaurant.save
+
+  end
+  test "cannot create two restaurants with the same name" do
+    new_restaurant = Restaurant.new
+    new_restaurant.user = @user
+    new_restaurant.info = "This is a new restaurant"
+    new_restaurant.name = @restaurant.name
+    assert !new_restaurant.save
+  end
+
   test "cannot create a restaurant without info" do
     @restaurant.info  =  nil
     assert !@restaurant.save
@@ -54,6 +70,7 @@ class RestaurantTest < ActiveSupport::TestCase
   end
 
   test "top_by_average_rating returns restaurants ordered by average rating" do
+    # note that if restaurant doesn't have any ratings it isn't included in this array:
     actuals = Restaurant.top_by_average_rating(Restaurant.count)
     # create a array of [restaurant, average_rating] pairs sorted by average rating:
     expecteds = Restaurant.all
@@ -62,6 +79,7 @@ class RestaurantTest < ActiveSupport::TestCase
 
     #compare the average-ratings between expected and actual
     expecteds.each_with_index do |value, index|
+      break if (value[1] == 0) # in case there were restaurants with no ratingsn
       assert_equal(value[1], actuals[index].average_rating)
     end
   end

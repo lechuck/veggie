@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
   def index
-#    @users = User.all
+    #    @users = User.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.xml
   def show
- #   @user = User.find(params[:id])
+    #   @user = User.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.xml
   def new
-  #  @user = User.new
+    #  @user = User.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-   # @user = User.find(params[:id])
+    # @user = User.find(params[:id])
   end
 
   # POST /users
@@ -75,12 +75,8 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.xml
   def destroy
-    #@user = User.find(params[:id])
-    #@user.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(users_url) }
-      format.xml  { head :ok }
-    end
+    @user.destroy
+    redirect_to users_path
   end
+
 end

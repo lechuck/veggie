@@ -1,22 +1,22 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  user: one
-  name: One
-  website: http://www.bamboocenter.com
-  info: This be info.
-
-two:
-  user: admin
-  name: MyString
-  website: MyString
-  info: MyText
-
 bamboo:
   user: mikko
   name: Bamboo
   website: http://www.bamboocenter.com
   info: This be info.
+
+maoz:
+  user: mikko
+  name: Maoz
+  website: http://www.maoz.com
+  info: Falsui!
+
+happy_garden:
+  user: mikko
+  name: Happy Garden
+  website: http://www.happy.gard.en
+  info: Hyviä tofuruokia!
 
 
 

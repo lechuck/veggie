@@ -1,46 +1,31 @@
 class RestaurantsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :except => :tag
 
   add_crumb("Restaurants") { |instance| instance.send :restaurants_path }  
 
-  def like     
-    @restaurant.like(current_user)
-    #redirect_to dashboard_path
-    redirect_to :back
-
+  def like
+    if @restaurant.like(current_user)
+      redirect_to @restaurant
+    else
+      redirect_to @restaurant, :alert => 'Voit tykätä vain kerran'
+    end
   end
 
-  # GET /restaurants/1/add_tags
-  # refactor: move functionality down to model
+  # POST /restaurants/1/add_tags
   def add_tags
-    # clean the trailing
-    
-    taglist = params[:taglist].strip
-    if taglist[-1..-1].eql?(',')
-      taglist = taglist[0,taglist.length-1]
-    end
-    
-    @restaurant.add_tags(taglist)
+    @restaurant.add_tags(params[:taglist])
     @restaurant.save
     redirect_to @restaurant
-
-  end
-
-  def tag_cloud
-    # refactor : Is this even needed anywhere?
-    @tags = Restaurant.tag_counts_on(:tags)
-
+  rescue ActiveRecord::RecordInvalid
+    # TODO: add validation errors
+    redirect_to @restaurant, :alert => 'Et voi lisätä tyhjää tagia'
   end
 
   def tag
     # Search all restaurants with tag
     @tag_name = params[:id]
-    logger.info('tag:' + @tag_name)
     @restaurants_with_tag = Restaurant.tagged_with(@tag_name)
-    #@restaurants_with_tag = r.find(:first)
-
   end
-
 
   # GET /restaurants
   # GET /restaurants.xml
@@ -63,7 +48,7 @@ class RestaurantsController < ApplicationController
 
   # GET /restaurants/1
   # GET /restaurants/1.xml
-  def show  
+  def show
     @tags = @restaurant.tag_counts_on(:tags)
     @food = @restaurant.average_rating_for :food
     @environment = @restaurant.average_rating_for :environment
@@ -75,7 +60,6 @@ class RestaurantsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @restaurant }
     end
   end
 
@@ -86,7 +70,6 @@ class RestaurantsController < ApplicationController
     3.times {@restaurant.restaurant_images.build}
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @restaurant }
     end
   end
 
@@ -97,7 +80,7 @@ class RestaurantsController < ApplicationController
     3.times { @restaurant.restaurant_images.build }
 
     add_crumb @restaurant.name, @restaurant
-    add_crumb "edit", nil    
+    add_crumb "edit", nil
   end
 
   # POST /restaurants
@@ -122,10 +105,8 @@ class RestaurantsController < ApplicationController
     respond_to do |format|
       if @restaurant.update_attributes(params[:restaurant])
         format.html { redirect_to(@restaurant, :notice => 'Restaurant was successfully updated.') }
-        format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @restaurant.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -135,11 +116,7 @@ class RestaurantsController < ApplicationController
   def destroy
     @restaurant = Restaurant.find(params[:id])
     @restaurant.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(restaurants_url) }
-      format.xml  { head :ok }
-    end
+    redirect_to restaurants_path
   end
 
   private

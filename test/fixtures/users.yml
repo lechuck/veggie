@@ -1,13 +1,4 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  username: one
-  email: test@testing.com
-  password_salt: <%= salt = Authlogic::Random.hex_token %>
-  crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt("one" + salt) %>
-  persistence_token: <%= Authlogic::Random.hex_token %>
-  admin: false
-
 admin:
   username: admin
   email: admin@veggie.fi
