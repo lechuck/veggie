@@ -28,7 +28,7 @@ class CommentsController < ApplicationController
   # does what destroy usually does
   def destroy
     @comment.destroy
-    redirect_to :back, :notice => "Kommentti on oikeasti poistettu"
+    redirect_to @restaurant, :notice => "Kommentti on oikeasti poistettu"
   end
 
   # marks comment as deleted. doesn't remove anything from db.

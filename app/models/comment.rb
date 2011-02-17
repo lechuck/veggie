@@ -7,7 +7,8 @@ class Comment < ActiveRecord::Base
 
  # overrides default accessor
   def comment
-    return 'Kommentti on poistettu.' if deleted
+    return 'Kommentti on poistettu.' if deleted?
     read_attribute(:comment)
   end
+
 end
